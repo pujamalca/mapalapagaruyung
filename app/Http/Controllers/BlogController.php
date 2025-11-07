@@ -48,7 +48,19 @@ class BlogController extends Controller
             $q->published();
         }])->get();
 
-        return view('blog.index', compact('posts', 'categories'));
+        // Get featured post
+        $featuredPost = Post::published()
+            ->where('is_featured', true)
+            ->latest('published_at')
+            ->first();
+
+        // Get popular posts
+        $popularPosts = Post::published()
+            ->orderBy('view_count', 'desc')
+            ->take(5)
+            ->get();
+
+        return view('blog.modern-index', compact('posts', 'categories', 'featuredPost', 'popularPosts'));
     }
 
     /**
@@ -80,6 +92,6 @@ class BlogController extends Controller
             ->take(3)
             ->get();
 
-        return view('blog.show', compact('post', 'relatedPosts'));
+        return view('blog.modern-show', compact('post', 'relatedPosts'));
     }
 }

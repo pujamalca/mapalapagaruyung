@@ -63,7 +63,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('activities') }}" class="flex items-center gap-2 hover:text-green-500 transition-colors">
+                        <a href="{{ route('activities.index') }}" class="flex items-center gap-2 hover:text-green-500 transition-colors">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                             </svg>
@@ -71,11 +71,27 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('gallery') }}" class="flex items-center gap-2 hover:text-green-500 transition-colors">
+                        <a href="{{ route('gallery.index') }}" class="flex items-center gap-2 hover:text-green-500 transition-colors">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                             </svg>
                             Galeri
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('blog.index') }}" class="flex items-center gap-2 hover:text-green-500 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                            Blog
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('contact') }}" class="flex items-center gap-2 hover:text-green-500 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                            Kontak
                         </a>
                     </li>
                     <li>

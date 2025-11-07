@@ -41,7 +41,43 @@ class ActivityController extends Controller
                 ->get();
         }
 
-        return view('pages.activities', compact('expeditions', 'competitions', 'trainings', 'type'));
+        // Prepare calendar events data
+        $calendarEvents = [];
+
+        foreach ($expeditions as $expedition) {
+            $calendarEvents[] = [
+                'title' => $expedition->name,
+                'start' => $expedition->start_date,
+                'end' => $expedition->end_date,
+                'type' => 'expedition',
+                'status' => $expedition->status,
+                'url' => route('activities.expedition', $expedition),
+            ];
+        }
+
+        foreach ($competitions as $competition) {
+            $calendarEvents[] = [
+                'title' => $competition->name,
+                'start' => $competition->start_date,
+                'end' => $competition->end_date,
+                'type' => 'competition',
+                'status' => $competition->status,
+                'url' => route('activities.competition', $competition),
+            ];
+        }
+
+        foreach ($trainings as $training) {
+            $calendarEvents[] = [
+                'title' => $training->name,
+                'start' => $training->start_date,
+                'end' => $training->end_date,
+                'type' => 'training',
+                'status' => $training->status,
+                'url' => route('activities.training', $training),
+            ];
+        }
+
+        return view('pages.modern-activities', compact('expeditions', 'competitions', 'trainings', 'type', 'calendarEvents'));
     }
 
     public function showExpedition(Expedition $expedition): View
