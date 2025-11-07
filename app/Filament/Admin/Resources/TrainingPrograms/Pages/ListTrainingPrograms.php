@@ -3,6 +3,7 @@
 namespace App\Filament\Admin\Resources\TrainingPrograms\Pages;
 
 use App\Filament\Admin\Resources\TrainingPrograms\TrainingProgramResource;
+use App\Filament\Exports\TrainingProgramExporter;
 use App\Filament\Imports\TrainingProgramImporter;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
@@ -24,6 +25,11 @@ class ListTrainingPrograms extends ListRecords
                 ->label('Import Program Pelatihan')
                 ->color('success')
                 ->icon('heroicon-o-arrow-up-tray'),
+            Actions\ExportAction::make()
+                ->exporter(TrainingProgramExporter::class)
+                ->label('Export Program Pelatihan')
+                ->color('info')
+                ->icon('heroicon-o-arrow-down-tray'),
         ];
     }
 

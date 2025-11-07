@@ -3,6 +3,7 @@
 namespace App\Filament\Admin\Resources\EquipmentBorrowings\Pages;
 
 use App\Filament\Admin\Resources\EquipmentBorrowings\EquipmentBorrowingResource;
+use App\Filament\Exports\EquipmentBorrowingExporter;
 use App\Models\EquipmentBorrowing;
 use Filament\Actions;
 use Filament\Resources\Components\Tab;
@@ -17,6 +18,11 @@ class ListEquipmentBorrowings extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+            Actions\ExportAction::make()
+                ->exporter(EquipmentBorrowingExporter::class)
+                ->label('Export Peminjaman')
+                ->color('info')
+                ->icon('heroicon-o-arrow-down-tray'),
         ];
     }
 

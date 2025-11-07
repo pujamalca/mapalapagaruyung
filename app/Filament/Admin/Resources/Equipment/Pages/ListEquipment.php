@@ -3,6 +3,7 @@
 namespace App\Filament\Admin\Resources\Equipment\Pages;
 
 use App\Filament\Admin\Resources\Equipment\EquipmentResource;
+use App\Filament\Exports\EquipmentExporter;
 use App\Filament\Imports\EquipmentImporter;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
@@ -22,6 +23,11 @@ class ListEquipment extends ListRecords
                 ->label('Import Peralatan')
                 ->color('success')
                 ->icon('heroicon-o-arrow-up-tray'),
+            Actions\ExportAction::make()
+                ->exporter(EquipmentExporter::class)
+                ->label('Export Peralatan')
+                ->color('info')
+                ->icon('heroicon-o-arrow-down-tray'),
         ];
     }
 

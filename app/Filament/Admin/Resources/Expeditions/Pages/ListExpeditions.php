@@ -3,6 +3,7 @@
 namespace App\Filament\Admin\Resources\Expeditions\Pages;
 
 use App\Filament\Admin\Resources\Expeditions\ExpeditionResource;
+use App\Filament\Exports\ExpeditionExporter;
 use App\Filament\Imports\ExpeditionImporter;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
@@ -24,6 +25,11 @@ class ListExpeditions extends ListRecords
                 ->label('Import Ekspedisi')
                 ->color('success')
                 ->icon('heroicon-o-arrow-up-tray'),
+            Actions\ExportAction::make()
+                ->exporter(ExpeditionExporter::class)
+                ->label('Export Ekspedisi')
+                ->color('info')
+                ->icon('heroicon-o-arrow-down-tray'),
         ];
     }
 

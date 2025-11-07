@@ -3,6 +3,7 @@
 namespace App\Filament\Admin\Resources\Competitions\Pages;
 
 use App\Filament\Admin\Resources\Competitions\CompetitionResource;
+use App\Filament\Exports\CompetitionExporter;
 use App\Filament\Imports\CompetitionImporter;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
@@ -24,6 +25,11 @@ class ListCompetitions extends ListRecords
                 ->label('Import Kompetisi')
                 ->color('success')
                 ->icon('heroicon-o-arrow-up-tray'),
+            Actions\ExportAction::make()
+                ->exporter(CompetitionExporter::class)
+                ->label('Export Kompetisi')
+                ->color('info')
+                ->icon('heroicon-o-arrow-down-tray'),
         ];
     }
 
