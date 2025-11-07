@@ -45,15 +45,25 @@
                    :class="scrolled ? 'text-gray-700 dark:text-gray-300 hover:text-green-600' : 'text-white hover:text-green-300'">
                     Tentang
                 </a>
-                <a href="{{ route('activities') }}"
-                   class="nav-link {{ request()->routeIs('activities') ? 'active' : '' }}"
+                <a href="{{ route('activities.index') }}"
+                   class="nav-link {{ request()->routeIs('activities*') ? 'active' : '' }}"
                    :class="scrolled ? 'text-gray-700 dark:text-gray-300 hover:text-green-600' : 'text-white hover:text-green-300'">
                     Kegiatan
                 </a>
-                <a href="{{ route('gallery') }}"
-                   class="nav-link {{ request()->routeIs('gallery') ? 'active' : '' }}"
+                <a href="{{ route('gallery.index') }}"
+                   class="nav-link {{ request()->routeIs('gallery*') ? 'active' : '' }}"
                    :class="scrolled ? 'text-gray-700 dark:text-gray-300 hover:text-green-600' : 'text-white hover:text-green-300'">
                     Galeri
+                </a>
+                <a href="{{ route('blog.index') }}"
+                   class="nav-link {{ request()->routeIs('blog*') ? 'active' : '' }}"
+                   :class="scrolled ? 'text-gray-700 dark:text-gray-300 hover:text-green-600' : 'text-white hover:text-green-300'">
+                    Blog
+                </a>
+                <a href="{{ route('contact') }}"
+                   class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}"
+                   :class="scrolled ? 'text-gray-700 dark:text-gray-300 hover:text-green-600' : 'text-white hover:text-green-300'">
+                    Kontak
                 </a>
 
                 <!-- CTA Button -->
@@ -117,13 +127,21 @@
                class="block py-2 text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-500 font-medium {{ request()->routeIs('about') ? 'text-green-600 dark:text-green-500' : '' }}">
                 ℹ️ Tentang
             </a>
-            <a href="{{ route('activities') }}"
-               class="block py-2 text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-500 font-medium {{ request()->routeIs('activities') ? 'text-green-600 dark:text-green-500' : '' }}">
+            <a href="{{ route('activities.index') }}"
+               class="block py-2 text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-500 font-medium {{ request()->routeIs('activities*') ? 'text-green-600 dark:text-green-500' : '' }}">
                 📅 Kegiatan
             </a>
-            <a href="{{ route('gallery') }}"
-               class="block py-2 text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-500 font-medium {{ request()->routeIs('gallery') ? 'text-green-600 dark:text-green-500' : '' }}">
+            <a href="{{ route('gallery.index') }}"
+               class="block py-2 text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-500 font-medium {{ request()->routeIs('gallery*') ? 'text-green-600 dark:text-green-500' : '' }}">
                 📸 Galeri
+            </a>
+            <a href="{{ route('blog.index') }}"
+               class="block py-2 text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-500 font-medium {{ request()->routeIs('blog*') ? 'text-green-600 dark:text-green-500' : '' }}">
+                📝 Blog
+            </a>
+            <a href="{{ route('contact') }}"
+               class="block py-2 text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-500 font-medium {{ request()->routeIs('contact') ? 'text-green-600 dark:text-green-500' : '' }}">
+                ✉️ Kontak
             </a>
 
             <div class="pt-4 border-t border-gray-200 dark:border-gray-800">
