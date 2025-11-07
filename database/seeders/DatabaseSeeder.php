@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CohortSeeder::class);
         $this->call(DivisionSeeder::class);
         $this->call(RecruitmentSeeder::class);
+        $this->call(TrainingSeeder::class);
 
         if (app()->environment(['local', 'testing'])) {
             $admin = User::updateOrCreate(
