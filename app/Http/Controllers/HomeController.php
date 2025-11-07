@@ -64,7 +64,10 @@ class HomeController extends Controller
             ->where('registration_end', '>=', now())
             ->first();
 
-        return view('home', compact(
+        // Add training stat for consistency
+        $stats['training'] = $stats['training_programs'];
+
+        return view('modern-home', compact(
             'stats',
             'recentExpeditions',
             'recentCompetitions',
