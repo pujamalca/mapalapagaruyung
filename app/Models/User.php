@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -92,6 +93,18 @@ class User extends Authenticatable implements HasMedia, HasAvatar, MustVerifyEma
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function divisions(): BelongsToMany
+    {
+        return $this->belongsToMany(Division::class, 'division_user')
+            ->withPivot(['joined_at', 'role', 'is_active'])
+            ->withTimestamps();
+    }
+
+    public function activeDivisions(): BelongsToMany
+    {
+        return $this->divisions()->wherePivot('is_active', true);
     }
 
     public function getAvatarUrl(): string
