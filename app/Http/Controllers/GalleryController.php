@@ -31,7 +31,7 @@ class GalleryController extends Controller
         $galleries = $query->latest('published_at')->paginate(12);
         $categories = GalleryCategory::orderBy('order')->get();
 
-        return view('pages.gallery', compact('galleries', 'categories'));
+        return view('pages.modern-gallery', compact('galleries', 'categories'));
     }
 
     public function show(Gallery $gallery): View
