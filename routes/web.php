@@ -10,6 +10,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+// About, Gallery, Activities routes
+Route::get('/about', [App\Http\Controllers\AboutController::class, 'index'])->name('about');
+Route::get('/gallery', [App\Http\Controllers\GalleryController::class, 'index'])->name('gallery.index');
+Route::get('/gallery/{gallery}', [App\Http\Controllers\GalleryController::class, 'show'])->name('gallery.show');
+Route::get('/activities', [App\Http\Controllers\ActivityController::class, 'index'])->name('activities.index');
+Route::get('/activities/expedition/{expedition}', [App\Http\Controllers\ActivityController::class, 'showExpedition'])->name('activities.expedition');
+Route::get('/activities/competition/{competition}', [App\Http\Controllers\ActivityController::class, 'showCompetition'])->name('activities.competition');
+Route::get('/activities/training/{training}', [App\Http\Controllers\ActivityController::class, 'showTraining'])->name('activities.training');
+
 // Blog routes
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
