@@ -3,6 +3,7 @@
 namespace App\Filament\Admin\Resources\Equipment\Pages;
 
 use App\Filament\Admin\Resources\Equipment\EquipmentResource;
+use App\Filament\Imports\EquipmentImporter;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Components\Tab;
@@ -16,6 +17,11 @@ class ListEquipment extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+            Actions\ImportAction::make()
+                ->importer(EquipmentImporter::class)
+                ->label('Import Peralatan')
+                ->color('success')
+                ->icon('heroicon-o-arrow-up-tray'),
         ];
     }
 

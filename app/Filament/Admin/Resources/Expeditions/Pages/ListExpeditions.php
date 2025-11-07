@@ -3,6 +3,7 @@
 namespace App\Filament\Admin\Resources\Expeditions\Pages;
 
 use App\Filament\Admin\Resources\Expeditions\ExpeditionResource;
+use App\Filament\Imports\ExpeditionImporter;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Components\Tab;
@@ -18,6 +19,11 @@ class ListExpeditions extends ListRecords
             Actions\CreateAction::make()
                 ->label('Tambah Ekspedisi')
                 ->icon('heroicon-o-plus'),
+            Actions\ImportAction::make()
+                ->importer(ExpeditionImporter::class)
+                ->label('Import Ekspedisi')
+                ->color('success')
+                ->icon('heroicon-o-arrow-up-tray'),
         ];
     }
 

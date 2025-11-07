@@ -3,6 +3,7 @@
 namespace App\Filament\Admin\Resources\TrainingPrograms\Pages;
 
 use App\Filament\Admin\Resources\TrainingPrograms\TrainingProgramResource;
+use App\Filament\Imports\TrainingProgramImporter;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Components\Tab;
@@ -18,6 +19,11 @@ class ListTrainingPrograms extends ListRecords
             Actions\CreateAction::make()
                 ->label('Tambah Program Pelatihan')
                 ->icon('heroicon-o-plus'),
+            Actions\ImportAction::make()
+                ->importer(TrainingProgramImporter::class)
+                ->label('Import Program Pelatihan')
+                ->color('success')
+                ->icon('heroicon-o-arrow-up-tray'),
         ];
     }
 

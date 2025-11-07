@@ -3,6 +3,7 @@
 namespace App\Filament\Admin\Resources\Competitions\Pages;
 
 use App\Filament\Admin\Resources\Competitions\CompetitionResource;
+use App\Filament\Imports\CompetitionImporter;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Components\Tab;
@@ -18,6 +19,11 @@ class ListCompetitions extends ListRecords
             Actions\CreateAction::make()
                 ->label('Tambah Kompetisi/Event')
                 ->icon('heroicon-o-plus'),
+            Actions\ImportAction::make()
+                ->importer(CompetitionImporter::class)
+                ->label('Import Kompetisi')
+                ->color('success')
+                ->icon('heroicon-o-arrow-up-tray'),
         ];
     }
 

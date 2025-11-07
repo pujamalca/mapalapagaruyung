@@ -3,7 +3,9 @@
 namespace App\Filament\Admin\Resources\Users\Pages;
 
 use App\Filament\Admin\Resources\Users\UserResource;
+use App\Filament\Imports\UserImporter;
 use Filament\Actions\CreateAction;
+use Filament\Actions\ImportAction;
 use Filament\Resources\Pages\ListRecords;
 
 class ListUsers extends ListRecords
@@ -14,6 +16,11 @@ class ListUsers extends ListRecords
     {
         return [
             CreateAction::make(),
+            ImportAction::make()
+                ->importer(UserImporter::class)
+                ->label('Import Anggota')
+                ->color('success')
+                ->icon('heroicon-o-arrow-up-tray'),
         ];
     }
 }
