@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class ExpeditionsChart extends ChartWidget
 {
-    protected static ?string $heading = 'Tren Ekspedisi per Bulan';
+    protected ?string $heading = 'Tren Ekspedisi per Bulan';
 
     protected static ?int $sort = 2;
 

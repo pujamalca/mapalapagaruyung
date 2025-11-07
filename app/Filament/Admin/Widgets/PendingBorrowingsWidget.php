@@ -2,6 +2,7 @@
 
 namespace App\Filament\Admin\Widgets;
 
+use App\Filament\Admin\Resources\EquipmentBorrowings\EquipmentBorrowingResource;
 use App\Models\EquipmentBorrowing;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -51,8 +52,8 @@ class PendingBorrowingsWidget extends BaseWidget
                 Tables\Columns\TextColumn::make('status')
                     ->label('Status')
                     ->badge()
-                    ->color(fn (string $state, EquipmentBorrowing $record): string => {
-                        if ($record->isOverdue()) {
+                    ->color(function (string $state, ?EquipmentBorrowing $record): string {
+                        if ($record?->isOverdue()) {
                             return 'danger';
                         }
                         return match ($state) {
@@ -64,9 +65,9 @@ class PendingBorrowingsWidget extends BaseWidget
                             default => 'gray',
                         };
                     })
-                    ->formatStateUsing(fn (string $state, EquipmentBorrowing $record): string => {
-                        if ($record->isOverdue()) {
-                            return 'Terlambat ' . $record->getDaysLate() . ' hari';
+                    ->formatStateUsing(function (string $state, ?EquipmentBorrowing $record): string {
+                        if ($record?->isOverdue()) {
+                            return 'Terlambat ' . $record?->getDaysLate() . ' hari';
                         }
                         return match ($state) {
                             'pending' => 'Menunggu',
@@ -82,21 +83,24 @@ class PendingBorrowingsWidget extends BaseWidget
                     ->label('Jatuh Tempo')
                     ->date('d M Y')
                     ->sortable()
-                    ->color(fn (EquipmentBorrowing $record): string =>
-                        $record->isOverdue() ? 'danger' : 'gray'
+                    ->color(fn (?EquipmentBorrowing $record): string =>
+                        $record?->isOverdue() ? 'danger' : 'gray'
                     ),
 
                 Tables\Columns\TextColumn::make('late_penalty')
                     ->label('Denda')
                     ->money('IDR')
                     ->alignEnd()
-                    ->visible(fn (EquipmentBorrowing $record): bool => $record->late_penalty > 0),
+                    ->visible(fn (?EquipmentBorrowing $record): bool => (($record?->late_penalty ?? 0) > 0)),
             ])
             ->actions([
                 Tables\Actions\Action::make('view')
-                    ->url(fn (EquipmentBorrowing $record): string =>
-                        route('filament.admin.resources.equipment-borrowings.equipment-borrowings.edit', $record)
+                    ->url(fn (?EquipmentBorrowing $record): string =>
+                        $record
+                            ? EquipmentBorrowingResource::getUrl('edit', ['record' => $record])
+                            : '#'
                     )
+                    ->visible(fn (?EquipmentBorrowing $record): bool => filled($record))
                     ->icon('heroicon-o-eye'),
             ])
             ->emptyStateHeading('Tidak ada peminjaman yang perlu diproses')

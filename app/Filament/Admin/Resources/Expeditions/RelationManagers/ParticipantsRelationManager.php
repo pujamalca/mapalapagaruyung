@@ -5,6 +5,7 @@ namespace App\Filament\Admin\Resources\Expeditions\RelationManagers;
 use Filament\Forms;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Section;
 use Filament\Tables;
 use Filament\Tables\Table;
 
@@ -59,7 +60,7 @@ class ParticipantsRelationManager extends RelationManager
                     ->default(false)
                     ->inline(false),
 
-                Forms\Components\Section::make('Kesehatan & Kebugaran')
+                Section::make('Kesehatan & Kebugaran')
                     ->schema([
                         Forms\Components\Textarea::make('health_declaration')
                             ->label('Deklarasi Kesehatan')
@@ -78,7 +79,7 @@ class ParticipantsRelationManager extends RelationManager
                     ])
                     ->visible(fn ($record) => $record !== null),
 
-                Forms\Components\Section::make('Peralatan')
+                Section::make('Peralatan')
                     ->schema([
                         Forms\Components\Toggle::make('equipment_verified')
                             ->label('Peralatan Terverifikasi')
@@ -98,7 +99,7 @@ class ParticipantsRelationManager extends RelationManager
                     ])
                     ->visible(fn ($record) => $record !== null),
 
-                Forms\Components\Section::make('Pembayaran')
+                Section::make('Pembayaran')
                     ->schema([
                         Forms\Components\TextInput::make('payment_amount')
                             ->label('Jumlah Bayar')
@@ -119,7 +120,7 @@ class ParticipantsRelationManager extends RelationManager
                     ])
                     ->visible(fn ($record) => $record !== null),
 
-                Forms\Components\Section::make('Evaluasi & Kontribusi')
+                Section::make('Evaluasi & Kontribusi')
                     ->schema([
                         Forms\Components\TextInput::make('performance_rating')
                             ->label('Rating Performa')
@@ -150,7 +151,7 @@ class ParticipantsRelationManager extends RelationManager
                     ])
                     ->visible(fn ($record) => $record !== null && in_array($record->status, ['participating', 'completed'])),
 
-                Forms\Components\Section::make('Feedback Peserta')
+                Section::make('Feedback Peserta')
                     ->schema([
                         Forms\Components\Textarea::make('participant_feedback')
                             ->label('Feedback')

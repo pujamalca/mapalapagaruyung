@@ -37,7 +37,8 @@ return new class extends Migration
             $table->boolean('is_public')->default(true);
             $table->enum('status', ['draft', 'published', 'archived'])->default('draft');
 
-            // Stats
+            // Publishing & Stats
+            $table->timestamp('published_at')->nullable();
             $table->unsignedInteger('view_count')->default(0);
             $table->unsignedInteger('media_count')->default(0);
 
@@ -51,10 +52,10 @@ return new class extends Migration
 
             // Indexes
             $table->index('status');
+            $table->index('published_at');
             $table->index('is_featured');
             $table->index('is_public');
             $table->index('event_date');
-            $table->index(['galleryable_type', 'galleryable_id']);
         });
     }
 

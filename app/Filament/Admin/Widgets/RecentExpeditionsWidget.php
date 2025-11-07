@@ -2,10 +2,12 @@
 
 namespace App\Filament\Admin\Widgets;
 
+use App\Filament\Admin\Resources\Expeditions\ExpeditionResource;
 use App\Models\Expedition;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
+use Filament\Tables\Actions\ViewAction;
 
 class RecentExpeditionsWidget extends BaseWidget
 {
@@ -19,7 +21,7 @@ class RecentExpeditionsWidget extends BaseWidget
             ->heading('Ekspedisi Terbaru')
             ->query(
                 Expedition::query()
-                    ->whereIn('status', ['ongoing', 'preparation', 'completed'])
+                    ->whereIn('status', ['ongoing', 'preparing', 'completed'])
                     ->latest('start_date')
                     ->limit(10)
             )
@@ -84,8 +86,8 @@ class RecentExpeditionsWidget extends BaseWidget
                     ->default('-'),
             ])
             ->actions([
-                Tables\Actions\Action::make('view')
-                    ->url(fn (Expedition $record): string => route('filament.admin.resources.expeditions.expeditions.edit', $record))
+                ViewAction::make('view')
+                    ->url(fn (Expedition $record): string => ExpeditionResource::getUrl('edit', ['record' => $record]))
                     ->icon('heroicon-o-eye'),
             ])
             ->paginated(false);

@@ -5,6 +5,8 @@ namespace App\Filament\Admin\Resources\TrainingPrograms\RelationManagers;
 use Filament\Forms;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
 use Filament\Tables;
 use Filament\Tables\Table;
 
@@ -20,7 +22,7 @@ class SessionsRelationManager extends RelationManager
     {
         return $schema
             ->schema([
-                Forms\Components\Grid::make(2)->schema([
+                Grid::make(2)->schema([
                     Forms\Components\TextInput::make('title')
                         ->label('Judul Sesi')
                         ->required()
@@ -44,7 +46,7 @@ class SessionsRelationManager extends RelationManager
                     ->rows(3)
                     ->maxLength(1000),
 
-                Forms\Components\Grid::make(3)->schema([
+                Grid::make(3)->schema([
                     Forms\Components\TextInput::make('order')
                         ->label('Urutan')
                         ->numeric()
@@ -91,7 +93,7 @@ class SessionsRelationManager extends RelationManager
                     ])
                     ->helperText('Konten materi yang akan diajarkan'),
 
-                Forms\Components\Grid::make(2)->schema([
+                Grid::make(2)->schema([
                     Forms\Components\Select::make('instructor_id')
                         ->label('Instruktur')
                         ->relationship('instructor', 'name')
@@ -131,9 +133,9 @@ class SessionsRelationManager extends RelationManager
                     ->collapsible()
                     ->itemLabel(fn (array $state): ?string => $state['item'] ?? null),
 
-                Forms\Components\Section::make('Penilaian')
+                Section::make('Penilaian')
                     ->schema([
-                        Forms\Components\Grid::make(3)->schema([
+                        Grid::make(3)->schema([
                             Forms\Components\Toggle::make('has_quiz')
                                 ->label('Ada Kuis')
                                 ->default(false)

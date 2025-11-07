@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Support\RoleMapper;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,7 +37,7 @@ class AuthController extends Controller
         ]);
 
         // Assign default role
-        $user->assignRole('Member');
+        $user->assignRole(RoleMapper::normalizeSingle('Member'));
 
         $token = $user->createToken('mobile-app')->plainTextToken;
 

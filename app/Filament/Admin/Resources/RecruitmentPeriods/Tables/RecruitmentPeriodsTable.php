@@ -2,6 +2,7 @@
 
 namespace App\Filament\Admin\Resources\RecruitmentPeriods\Tables;
 
+use Filament\Schemas\Components\DatePicker;
 use Filament\Tables;
 use Filament\Tables\Table;
 
@@ -119,9 +120,9 @@ class RecruitmentPeriodsTable
                 Tables\Filters\Filter::make('registration_period')
                     ->label('Periode Pendaftaran')
                     ->form([
-                        \Filament\Forms\Components\DatePicker::make('from')
+                        DatePicker::make('from')
                             ->label('Dari'),
-                        \Filament\Forms\Components\DatePicker::make('until')
+                        DatePicker::make('until')
                             ->label('Sampai'),
                     ])
                     ->query(function ($query, array $data) {

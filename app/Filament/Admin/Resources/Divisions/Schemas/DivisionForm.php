@@ -4,8 +4,8 @@ namespace App\Filament\Admin\Resources\Divisions\Schemas;
 
 use App\Models\User;
 use Filament\Forms;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class DivisionForm

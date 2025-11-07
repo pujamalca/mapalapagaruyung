@@ -3,10 +3,10 @@
 namespace App\Filament\Admin\Resources\Competitions\Schemas;
 
 use Filament\Forms;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
-use Spatie\MediaLibraryPro\Filament\Forms\Components\MediaLibraryFileUpload;
 
 class CompetitionForm
 {
@@ -378,7 +378,7 @@ class CompetitionForm
                     Tabs\Tab::make('Media & Dokumentasi')
                         ->icon('heroicon-o-photo')
                         ->schema([
-                            MediaLibraryFileUpload::make('posters')
+                            SpatieMediaLibraryFileUpload::make('posters')
                                 ->label('Poster Event')
                                 ->collection('posters')
                                 ->multiple()
@@ -386,7 +386,7 @@ class CompetitionForm
                                 ->image()
                                 ->imageEditor(),
 
-                            MediaLibraryFileUpload::make('photos')
+                            SpatieMediaLibraryFileUpload::make('photos')
                                 ->label('Foto Dokumentasi')
                                 ->collection('photos')
                                 ->multiple()
@@ -394,14 +394,14 @@ class CompetitionForm
                                 ->image()
                                 ->imageEditor(),
 
-                            MediaLibraryFileUpload::make('certificates')
+                            SpatieMediaLibraryFileUpload::make('certificates')
                                 ->label('Sertifikat/Piagam')
                                 ->collection('certificates')
                                 ->multiple()
                                 ->maxFiles(20)
                                 ->acceptedFileTypes(['image/*', 'application/pdf']),
 
-                            MediaLibraryFileUpload::make('documents')
+                            SpatieMediaLibraryFileUpload::make('documents')
                                 ->label('Dokumen')
                                 ->collection('documents')
                                 ->multiple()

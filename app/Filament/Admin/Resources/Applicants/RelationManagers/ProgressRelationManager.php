@@ -5,6 +5,8 @@ namespace App\Filament\Admin\Resources\Applicants\RelationManagers;
 use Filament\Forms;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
 use Filament\Tables;
 use Filament\Tables\Table;
 
@@ -22,7 +24,7 @@ class ProgressRelationManager extends RelationManager
     {
         return $schema
             ->components([
-                Forms\Components\Grid::make(2)->schema([
+                Grid::make(2)->schema([
                     Forms\Components\Select::make('selection_stage_id')
                         ->label('Tahap Seleksi')
                         ->relationship('selectionStage', 'name')
@@ -59,7 +61,7 @@ class ProgressRelationManager extends RelationManager
                     ->rows(2)
                     ->visible(fn (Forms\Get $get) => !$get('attended')),
 
-                Forms\Components\Section::make('Penilaian')
+                Section::make('Penilaian')
                     ->schema([
                         Forms\Components\TextInput::make('score')
                             ->label('Nilai')

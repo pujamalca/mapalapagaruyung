@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia;
@@ -22,6 +23,7 @@ class Cohort extends Model implements HasMedia
      * @var array<string>
      */
     protected $fillable = [
+        'code',
         'name',
         'year',
         'theme',
@@ -54,11 +56,33 @@ class Cohort extends Model implements HasMedia
     }
 
     /**
+     * Automatically generate a code if it is not provided.
+     */
+    protected static function booted(): void
+    {
+        static::creating(function (Cohort $cohort): void {
+            if (filled($cohort->code)) {
+                return;
+            }
+
+            $prefix = Str::of($cohort->name ?? '')
+                ->upper()
+                ->replaceMatches('/[^A-Z0-9]/', '')
+                ->substr(0, 6)
+                ->toString() ?: 'ANGK';
+
+            $year = $cohort->year ?? now()->year;
+            $cohort->code = sprintf('%s-%s-%s', $prefix, $year, Str::upper(Str::random(3)));
+        });
+    }
+
+    /**
      * Register media collections.
      */
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('photo')
+            ->useDisk('public')
             ->singleFile()
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp']);
     }

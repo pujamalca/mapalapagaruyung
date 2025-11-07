@@ -19,7 +19,7 @@ class ActivityController extends Controller
         $trainings = collect();
 
         if ($type === 'all' || $type === 'expedition') {
-            $expeditions = Expedition::with(['user'])
+            $expeditions = Expedition::with(['leader'])
                 ->whereIn('status', ['completed', 'ongoing', 'preparing'])
                 ->latest('start_date')
                 ->take($type === 'expedition' ? 12 : 4)
@@ -27,7 +27,7 @@ class ActivityController extends Controller
         }
 
         if ($type === 'all' || $type === 'competition') {
-            $competitions = Competition::with(['user'])
+            $competitions = Competition::with(['coordinator'])
                 ->whereIn('status', ['completed', 'ongoing', 'upcoming'])
                 ->latest('start_date')
                 ->take($type === 'competition' ? 12 : 4)
@@ -46,14 +46,14 @@ class ActivityController extends Controller
 
     public function showExpedition(Expedition $expedition): View
     {
-        $expedition->load(['user', 'expeditionParticipants.user']);
+        $expedition->load(['leader', 'expeditionParticipants.user']);
 
         return view('pages.expedition-detail', compact('expedition'));
     }
 
     public function showCompetition(Competition $competition): View
     {
-        $competition->load(['user', 'competitionParticipants.user']);
+        $competition->load(['coordinator', 'competitionParticipants.user']);
 
         return view('pages.competition-detail', compact('competition'));
     }

@@ -22,6 +22,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\HtmlString;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use function e;
 
@@ -39,7 +40,6 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(fn () => $this->resolveBrandLogo())
             ->brandLogoHeight('2.25rem')
             ->favicon(fn () => $this->resolveFaviconUrl())
-            ->renderHook(PanelsRenderHook::TOPBAR_LOGO_AFTER, fn () => $this->renderBrandText())
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->colors([
                 'primary' => Color::Amber,
@@ -100,7 +100,7 @@ class AdminPanelProvider extends PanelProvider
         }
     }
 
-    protected function resolveBrandLogo(): ?string
+    protected function resolveBrandLogo(): null|string|HtmlString
     {
         try {
             $settings = $this->generalSettings();
@@ -110,7 +110,23 @@ class AdminPanelProvider extends PanelProvider
                 return null;
             }
 
-            return $logoUrl;
+            $brandName = $this->resolveBrandName();
+
+            if (blank($brandName)) {
+                return $logoUrl;
+            }
+
+            $escapedLogo = e($logoUrl);
+            $escapedName = e($brandName);
+
+            return new HtmlString(
+                <<<HTML
+                <div class="flex items-center gap-2 h-full">
+                    <img src="{$escapedLogo}" alt="{$escapedName}" class="h-full w-auto" />
+                    <span class="hidden sm:inline-flex items-center text-sm font-semibold text-gray-700 dark:text-gray-200">{$escapedName}</span>
+                </div>
+                HTML
+            );
         } catch (\Exception $e) {
             return null;
         }
@@ -153,40 +169,4 @@ class AdminPanelProvider extends PanelProvider
         return $cache->general();
     }
 
-    protected function renderBrandText(): string
-    {
-        if ($this->isAuthRoute()) {
-            return '';
-        }
-
-        $brandName = $this->resolveBrandName();
-
-        if (blank($brandName)) {
-            return '';
-        }
-
-        return sprintf(
-            '<span class="hidden sm:inline-flex items-center text-sm font-semibold text-gray-700 dark:text-gray-200 ml-2">%s</span>',
-            e($brandName),
-        );
-    }
-
-    protected function isAuthRoute(): bool
-    {
-        $request = request();
-
-        if (! $request) {
-            return false;
-        }
-
-        $routeName = $request->route()?->getName();
-
-        if ($routeName && str_contains($routeName, '.auth.')) {
-            return true;
-        }
-
-        $path = $request->path();
-
-        return str_starts_with($path, 'admin/login');
-    }
 }

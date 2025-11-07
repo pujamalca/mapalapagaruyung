@@ -3,10 +3,10 @@
 namespace App\Filament\Admin\Resources\Galleries\Schemas;
 
 use Filament\Forms;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
-use Spatie\MediaLibraryPro\Filament\Forms\Components\MediaLibraryFileUpload;
 
 class GalleryForm
 {
@@ -84,14 +84,14 @@ class GalleryForm
                     Tabs\Tab::make('Media')
                         ->icon('heroicon-o-photo')
                         ->schema([
-                            MediaLibraryFileUpload::make('cover')
+                            SpatieMediaLibraryFileUpload::make('cover')
                                 ->label('Cover Album')
                                 ->collection('cover')
                                 ->image()
                                 ->imageEditor()
                                 ->helperText('Gambar cover untuk album ini'),
 
-                            MediaLibraryFileUpload::make('images')
+                            SpatieMediaLibraryFileUpload::make('images')
                                 ->label('Foto')
                                 ->collection('images')
                                 ->multiple()
@@ -101,7 +101,7 @@ class GalleryForm
                                 ->reorderable()
                                 ->helperText('Upload foto-foto untuk galeri ini'),
 
-                            MediaLibraryFileUpload::make('videos')
+                            SpatieMediaLibraryFileUpload::make('videos')
                                 ->label('Video')
                                 ->collection('videos')
                                 ->multiple()

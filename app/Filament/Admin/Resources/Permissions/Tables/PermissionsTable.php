@@ -31,13 +31,13 @@ class PermissionsTable
                     ->searchable(),
                 BadgeColumn::make('guard_name')
                     ->label('Guard'),
-                TextColumn::make('roles.name')
+                TextColumn::make('roles_count')
                     ->label('Roles')
                     ->badge()
                     ->color('info')
-                    ->formatStateUsing(fn ($state, Permission $record) => self::formatRelatedList($record->roles->pluck('name')))
+                    ->alignCenter()
                     ->tooltip(fn (Permission $record) => $record->roles->pluck('name')->join(', '))
-                    ->toggleable(),
+                    ->sortable(),
                 TextColumn::make('updated_at')
                     ->label('Diperbarui')
                     ->dateTime('d M Y H:i')
@@ -57,19 +57,4 @@ class PermissionsTable
             ]);
     }
 
-    protected static function formatRelatedList($items): string
-    {
-        $items = collect($items);
-
-        $visible = $items->take(3);
-        $hiddenCount = max($items->count() - $visible->count(), 0);
-
-        $label = $visible->join(', ');
-
-        if ($hiddenCount > 0) {
-            $label .= ' +' . $hiddenCount;
-        }
-
-        return $label;
-    }
 }

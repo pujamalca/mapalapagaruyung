@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('cohorts', function (Blueprint $table) {
             $table->id();
+            $table->string('code')->unique(); // XXIV
             $table->string('name'); // Kader XXIII
             $table->integer('year');
             $table->string('theme')->nullable();

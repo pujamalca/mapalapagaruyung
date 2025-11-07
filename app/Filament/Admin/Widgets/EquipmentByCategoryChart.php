@@ -8,7 +8,7 @@ use Filament\Widgets\ChartWidget;
 
 class EquipmentByCategoryChart extends ChartWidget
 {
-    protected static ?string $heading = 'Distribusi Peralatan per Kategori';
+    protected ?string $heading = 'Distribusi Peralatan per Kategori';
 
     protected static ?int $sort = 6;
 
@@ -18,7 +18,7 @@ class EquipmentByCategoryChart extends ChartWidget
     {
         $categories = EquipmentCategory::withCount([
             'equipment as total_quantity' => function ($query) {
-                $query->selectRaw('SUM(quantity_total)');
+                $query->selectRaw('SUM(quantity)');
             }
         ])->get();
 

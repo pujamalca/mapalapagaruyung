@@ -128,9 +128,17 @@ class MembersRelationManager extends RelationManager
                         'Koordinator' => 'Koordinator',
                         'Anggota' => 'Anggota',
                     ])
-                    ->query(fn ($query, $state) =>
-                        $query->when($state, fn ($q) => $q->wherePivot('role', $state['value']))
-                    ),
+                    ->query(function ($query, $state) {
+                        $value = $state;
+                        if (is_array($value)) {
+                            $value = $value['value'] ?? null;
+                        }
+
+                        return $query->when(
+                            filled($value),
+                            fn ($q) => $q->wherePivotIn('role', (array) $value)
+                        );
+                    }),
             ])
             ->headerActions([
                 Tables\Actions\AttachAction::make()

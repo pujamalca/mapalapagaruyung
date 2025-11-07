@@ -2,9 +2,11 @@
 
 namespace App\Filament\Admin\Resources\Cohorts\Tables;
 
+use Filament\Forms\Components\TextInput;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 class CohortsTable
 {
@@ -12,11 +14,39 @@ class CohortsTable
     {
         return $table
             ->columns([
-                Tables\Columns\SpatieMediaLibraryImageColumn::make('photo')
+                Tables\Columns\ImageColumn::make('photo')
                     ->label('Foto')
-                    ->collection('photo')
                     ->circular()
-                    ->defaultImageUrl(url('/images/default-cohort.png'))
+                    ->getStateUsing(function (\App\Models\Cohort $record): string {
+                        $mediaUrl = $record->getFirstMediaUrl('photo');
+
+                        if ($mediaUrl) {
+                            return $mediaUrl;
+                        }
+
+                        $initials = Str::of($record->name)
+                            ->trim()
+                            ->explode(' ')
+                            ->filter()
+                            ->map(fn ($segment) => Str::upper(Str::substr($segment, 0, 1)))
+                            ->take(2)
+                            ->implode('');
+
+                        if (blank($initials)) {
+                            $initials = 'CO';
+                        }
+
+                        $color = substr(md5($record->name ?? 'cohort'), 0, 6);
+
+                        $svg = <<<SVG
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128">
+    <rect width="128" height="128" rx="64" fill="#{$color}"/>
+    <text x="50%" y="52%" dominant-baseline="middle" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="48" fill="#ffffff" font-weight="600">{$initials}</text>
+</svg>
+SVG;
+
+                        return 'data:image/svg+xml;utf8,' . rawurlencode($svg);
+                    })
                     ->size(50),
 
                 Tables\Columns\TextColumn::make('name')
@@ -79,10 +109,12 @@ class CohortsTable
 
                 Tables\Filters\Filter::make('year')
                     ->form([
-                        Tables\Filters\Filter::make('year_from')
-                            ->label('Dari Tahun'),
-                        Tables\Filters\Filter::make('year_to')
-                            ->label('Sampai Tahun'),
+                        TextInput::make('year_from')
+                            ->label('Dari Tahun')
+                            ->numeric(),
+                        TextInput::make('year_to')
+                            ->label('Sampai Tahun')
+                            ->numeric(),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query

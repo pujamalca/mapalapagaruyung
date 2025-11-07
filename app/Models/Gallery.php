@@ -33,6 +33,7 @@ class Gallery extends Model implements HasMedia
         'is_featured',
         'is_public',
         'status',
+        'published_at',
         'view_count',
         'media_count',
         'meta_title',
@@ -48,6 +49,7 @@ class Gallery extends Model implements HasMedia
             'metadata' => 'array',
             'is_featured' => 'boolean',
             'is_public' => 'boolean',
+            'published_at' => 'datetime',
             'view_count' => 'integer',
             'media_count' => 'integer',
         ];
@@ -168,6 +170,7 @@ class Gallery extends Model implements HasMedia
         $this->update([
             'status' => 'published',
             'is_public' => true,
+            'published_at' => $this->published_at ?? now(),
         ]);
     }
 

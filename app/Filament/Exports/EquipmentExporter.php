@@ -32,15 +32,15 @@ class EquipmentExporter extends Exporter
             ExportColumn::make('model')
                 ->label('Model'),
 
-            ExportColumn::make('quantity_total')
+            ExportColumn::make('quantity')
                 ->label('Jumlah Total'),
 
             ExportColumn::make('quantity_available')
                 ->label('Jumlah Tersedia'),
 
-            ExportColumn::make('quantity')
+            ExportColumn::make('borrowed_amount')
                 ->label('Jumlah Dipinjam')
-                ->formatStateUsing(fn ($record) => $record->quantity_total - $record->quantity_available),
+                ->state(fn ($record) => max($record->quantity - $record->quantity_available, 0)),
 
             ExportColumn::make('unit')
                 ->label('Satuan'),
@@ -74,14 +74,8 @@ class EquipmentExporter extends Exporter
                 ->label('Harga Beli')
                 ->formatStateUsing(fn ($state) => $state ? 'Rp ' . number_format($state, 0, ',', '.') : '-'),
 
-            ExportColumn::make('location')
+            ExportColumn::make('storage_location')
                 ->label('Lokasi Penyimpanan'),
-
-            ExportColumn::make('weight')
-                ->label('Berat (kg)'),
-
-            ExportColumn::make('dimensions')
-                ->label('Dimensi'),
 
             ExportColumn::make('last_maintenance_date')
                 ->label('Maintenance Terakhir')

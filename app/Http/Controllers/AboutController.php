@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cohort;
 use App\Models\Division;
 use App\Models\User;
+use App\Support\RoleMapper;
 use Illuminate\View\View;
 
 class AboutController extends Controller
@@ -28,9 +29,12 @@ class AboutController extends Controller
             ->first();
 
         // Statistics
+        $memberRoles = RoleMapper::normalize(['Member', 'Senior Member']);
+        $totalMemberRoles = RoleMapper::normalize(['Member', 'Senior Member', 'Alumni']);
+
         $stats = [
-            'total_members' => User::role(['Member', 'Alumni', 'Senior Member'])->count(),
-            'active_members' => User::role(['Member', 'Senior Member'])->where('is_active', true)->count(),
+            'total_members' => User::role($totalMemberRoles)->count(),
+            'active_members' => User::role($memberRoles)->where('is_active', true)->count(),
             'alumni' => User::role('Alumni')->count(),
             'cohorts' => Cohort::count(),
             'divisions' => Division::where('is_active', true)->count(),

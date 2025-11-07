@@ -96,7 +96,7 @@
                         <div>
                             <div class="font-bold text-lg">{{ $activeRecruitment->name }}</div>
                             <div class="text-sm opacity-90">
-                                Pendaftaran ditutup: {{ $activeRecruitment->registration_end_date->format('d M Y') }}
+                                Pendaftaran ditutup: {{ $activeRecruitment->registration_end?->format('d M Y') }}
                             </div>
                         </div>
                     </div>

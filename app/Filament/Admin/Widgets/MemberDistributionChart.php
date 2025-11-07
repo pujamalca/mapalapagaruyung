@@ -8,7 +8,7 @@ use Filament\Widgets\ChartWidget;
 
 class MemberDistributionChart extends ChartWidget
 {
-    protected static ?string $heading = 'Distribusi Anggota';
+    protected ?string $heading = 'Distribusi Anggota';
 
     protected static ?int $sort = 7;
 
@@ -38,7 +38,7 @@ class MemberDistributionChart extends ChartWidget
 
     private function getCohortDistribution(): array
     {
-        $cohorts = Cohort::withCount('users')
+        $cohorts = Cohort::withCount('members')
             ->orderBy('name')
             ->get();
 
@@ -47,7 +47,7 @@ class MemberDistributionChart extends ChartWidget
 
         foreach ($cohorts as $cohort) {
             $labels[] = $cohort->name;
-            $data[] = $cohort->users_count;
+            $data[] = $cohort->members_count;
         }
 
         return [

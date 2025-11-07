@@ -5,6 +5,7 @@ namespace App\Filament\Admin\Resources\Equipment\RelationManagers;
 use Filament\Forms;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Grid;
 use Filament\Tables;
 use Filament\Tables\Table;
 
@@ -32,7 +33,7 @@ class BorrowingsRelationManager extends RelationManager
                     ->searchable()
                     ->preload(),
 
-                Forms\Components\Grid::make(2)->schema([
+                Grid::make(2)->schema([
                     Forms\Components\DatePicker::make('borrow_date')
                         ->label('Tanggal Pinjam')
                         ->required()

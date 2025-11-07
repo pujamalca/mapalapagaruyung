@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('brand')->nullable();
             $table->string('model')->nullable();
-            $table->year('year_purchased')->nullable();
+            $table->date('purchase_date')->nullable();
             $table->decimal('purchase_price', 10, 2)->nullable();
 
             // Condition & Status
@@ -31,12 +31,15 @@ return new class extends Migration
 
             // Storage
             $table->string('storage_location')->nullable();
+            $table->string('unit', 50)->default('unit');
             $table->integer('quantity')->default(1);
+            $table->integer('quantity_available')->default(0);
 
             // Maintenance
             $table->date('last_maintenance_date')->nullable();
             $table->date('next_maintenance_date')->nullable();
             $table->text('maintenance_notes')->nullable();
+            $table->integer('maintenance_interval_days')->nullable();
 
             // Borrowing info
             $table->foreignId('current_borrower_id')->nullable()->constrained('users')->nullOnDelete();

@@ -15,7 +15,7 @@ class Dashboard extends BaseDashboard
 {
     protected static ?string $title = 'Dashboard';
 
-    protected static string $view = 'filament.admin.pages.dashboard';
+    protected string $view = 'filament.admin.pages.dashboard';
 
     public function getWidgets(): array
     {
@@ -30,7 +30,7 @@ class Dashboard extends BaseDashboard
         ];
     }
 
-    public function getColumns(): int | string | array
+    public function getColumns(): int | array
     {
         return 2;
     }

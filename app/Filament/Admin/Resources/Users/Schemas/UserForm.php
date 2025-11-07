@@ -4,9 +4,10 @@ namespace App\Filament\Admin\Resources\Users\Schemas;
 
 use App\Models\Cohort;
 use Filament\Forms;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
 
 class UserForm
 {
@@ -15,7 +16,7 @@ class UserForm
         return [
             Tabs::make('User Profile')
                 ->tabs([
-                    Tabs\Tab::make('Informasi Dasar')
+                    Tab::make('Informasi Dasar')
                         ->icon('heroicon-o-user')
                         ->schema([
                             Section::make('Data Akun')
@@ -80,7 +81,7 @@ class UserForm
                                 ]),
                         ]),
 
-                    Tabs\Tab::make('Data Mahasiswa')
+                    Tab::make('Data Mahasiswa')
                         ->icon('heroicon-o-academic-cap')
                         ->schema([
                             Section::make('Informasi Akademik')
@@ -118,7 +119,7 @@ class UserForm
                                 ]),
                         ]),
 
-                    Tabs\Tab::make('Keanggotaan Mapala')
+                    Tab::make('Keanggotaan Mapala')
                         ->icon('heroicon-o-users')
                         ->schema([
                             Section::make('Data Anggota')
@@ -159,7 +160,7 @@ class UserForm
                                 ->columns(2),
                         ]),
 
-                    Tabs\Tab::make('Kesehatan')
+                    Tab::make('Kesehatan')
                         ->icon('heroicon-o-heart')
                         ->schema([
                             Section::make('Data Kesehatan')
@@ -214,7 +215,7 @@ class UserForm
                                 ->columns(3),
                         ]),
 
-                    Tabs\Tab::make('Skills & Sertifikat')
+                    Tab::make('Skills & Sertifikat')
                         ->icon('heroicon-o-trophy')
                         ->schema([
                             Section::make('Keterampilan')
@@ -271,7 +272,7 @@ class UserForm
                                 ->collapsed(),
                         ]),
 
-                    Tabs\Tab::make('Roles & Permissions')
+                    Tab::make('Roles & Permissions')
                         ->icon('heroicon-o-shield-check')
                         ->schema([
                             Section::make('Role & Izin Akses')

@@ -5,6 +5,8 @@ namespace App\Filament\Admin\Resources\TrainingPrograms\RelationManagers;
 use Filament\Forms;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
 use Filament\Tables;
 use Filament\Tables\Table;
 
@@ -50,9 +52,9 @@ class ParticipantsRelationManager extends RelationManager
                     ->default('registered')
                     ->required(),
 
-                Forms\Components\Section::make('Penilaian')
+                Section::make('Penilaian')
                     ->schema([
-                        Forms\Components\Grid::make(2)->schema([
+                        Grid::make(2)->schema([
                             Forms\Components\TextInput::make('total_score')
                                 ->label('Total Nilai')
                                 ->numeric()
@@ -71,7 +73,7 @@ class ParticipantsRelationManager extends RelationManager
                                 ->helperText('Otomatis dihitung dari attendance'),
                         ]),
 
-                        Forms\Components\Grid::make(2)->schema([
+                        Grid::make(2)->schema([
                             Forms\Components\TextInput::make('attendance_count')
                                 ->label('Jumlah Hadir')
                                 ->numeric()
@@ -94,7 +96,7 @@ class ParticipantsRelationManager extends RelationManager
                     ])
                     ->visible(fn ($record) => $record !== null),
 
-                Forms\Components\Section::make('Feedback Peserta')
+                Section::make('Feedback Peserta')
                     ->schema([
                         Forms\Components\Textarea::make('participant_feedback')
                             ->label('Feedback')
@@ -110,7 +112,7 @@ class ParticipantsRelationManager extends RelationManager
                     ])
                     ->visible(fn ($record) => $record !== null && in_array($record->status, ['completed', 'passed', 'failed'])),
 
-                Forms\Components\Section::make('Sertifikat')
+                Section::make('Sertifikat')
                     ->schema([
                         Forms\Components\Toggle::make('certificate_issued')
                             ->label('Sertifikat Diterbitkan')

@@ -24,13 +24,13 @@ class RolesTable
                     ->label('Slug')
                     ->toggleable()
                     ->searchable(),
-                TextColumn::make('permissions.name')
+                TextColumn::make('permissions_count')
                     ->label('Permissions')
                     ->badge()
                     ->color('info')
-                    ->formatStateUsing(fn ($state, Role $record) => self::formatRelatedList($record->permissions->pluck('name')))
+                    ->alignCenter()
                     ->tooltip(fn (Role $record) => $record->permissions->pluck('name')->join(', '))
-                    ->toggleable(),
+                    ->sortable(),
             IconColumn::make('is_system')
                 ->label('Role Sistem')
                 ->boolean(),
@@ -42,19 +42,4 @@ class RolesTable
             ]);
     }
 
-    protected static function formatRelatedList($items): string
-    {
-        $items = collect($items);
-
-        $visible = $items->take(3);
-        $hiddenCount = max($items->count() - $visible->count(), 0);
-
-        $label = $visible->join(', ');
-
-        if ($hiddenCount > 0) {
-            $label .= ' +' . $hiddenCount;
-        }
-
-        return $label;
-    }
 }

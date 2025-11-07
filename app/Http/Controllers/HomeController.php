@@ -6,18 +6,21 @@ use App\Models\Competition;
 use App\Models\Equipment;
 use App\Models\Expedition;
 use App\Models\Gallery;
-use App\Models\Recruitment;
+use App\Models\RecruitmentPeriod;
 use App\Models\TrainingProgram;
 use App\Models\User;
+use App\Support\RoleMapper;
 use Illuminate\View\View;
 
 class HomeController extends Controller
 {
     public function index(): View
     {
+        $memberRoles = RoleMapper::normalize(['Member', 'Alumni', 'Senior Member']);
+
         // Get statistics
         $stats = [
-            'members' => User::role(['Member', 'Alumni', 'Senior Member'])->count(),
+            'members' => User::role($memberRoles)->count(),
             'expeditions' => Expedition::where('status', 'completed')->count(),
             'competitions' => Competition::whereIn('status', ['completed', 'ongoing'])->count(),
             'equipment' => Equipment::where('status', 'available')->sum('quantity_available'),
@@ -25,14 +28,14 @@ class HomeController extends Controller
         ];
 
         // Get recent expeditions
-        $recentExpeditions = Expedition::with(['user'])
+        $recentExpeditions = Expedition::with(['leader'])
             ->whereIn('status', ['completed', 'ongoing'])
             ->latest('start_date')
             ->take(3)
             ->get();
 
         // Get recent competitions
-        $recentCompetitions = Competition::with(['user'])
+        $recentCompetitions = Competition::with(['coordinator'])
             ->whereIn('status', ['completed', 'ongoing'])
             ->latest('start_date')
             ->take(3)
@@ -45,17 +48,20 @@ class HomeController extends Controller
             ->get();
 
         // Get featured galleries
-        $featuredGalleries = Gallery::where('is_featured', true)
-            ->where('status', 'published')
-            ->where('is_public', true)
+        $featuredGalleries = Gallery::query()
+            ->featured()
+            ->published()
+            ->public()
             ->with('galleryCategory')
-            ->latest('published_at')
+            ->orderByDesc('published_at')
+            ->orderByDesc('event_date')
+            ->orderByDesc('created_at')
             ->take(6)
             ->get();
 
         // Get active recruitment if any
-        $activeRecruitment = Recruitment::where('status', 'open')
-            ->where('registration_end_date', '>=', now())
+        $activeRecruitment = RecruitmentPeriod::where('status', 'open')
+            ->where('registration_end', '>=', now())
             ->first();
 
         return view('home', compact(

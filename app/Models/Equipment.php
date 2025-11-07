@@ -25,16 +25,19 @@ class Equipment extends Model implements HasMedia
         'description',
         'brand',
         'model',
-        'year_purchased',
+        'purchase_date',
         'purchase_price',
         'condition',
         'status',
         'condition_notes',
         'storage_location',
+        'unit',
         'quantity',
+        'quantity_available',
         'last_maintenance_date',
         'next_maintenance_date',
         'maintenance_notes',
+        'maintenance_interval_days',
         'current_borrower_id',
         'borrowed_until',
         'specifications',
@@ -45,12 +48,14 @@ class Equipment extends Model implements HasMedia
     protected function casts(): array
     {
         return [
-            'year_purchased' => 'integer',
+            'purchase_date' => 'date',
             'purchase_price' => 'decimal:2',
             'quantity' => 'integer',
+            'quantity_available' => 'integer',
             'last_maintenance_date' => 'date',
             'next_maintenance_date' => 'date',
             'borrowed_until' => 'date',
+            'maintenance_interval_days' => 'integer',
             'specifications' => 'array',
             'metadata' => 'array',
         ];
@@ -77,6 +82,11 @@ class Equipment extends Model implements HasMedia
     public function category(): BelongsTo
     {
         return $this->belongsTo(EquipmentCategory::class, 'equipment_category_id');
+    }
+
+    public function equipmentCategory(): BelongsTo
+    {
+        return $this->category();
     }
 
     public function currentBorrower(): BelongsTo

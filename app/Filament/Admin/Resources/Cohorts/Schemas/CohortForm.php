@@ -3,8 +3,8 @@
 namespace App\Filament\Admin\Resources\Cohorts\Schemas;
 
 use Filament\Forms;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class CohortForm
@@ -15,12 +15,21 @@ class CohortForm
             Section::make('Informasi Dasar')
                 ->description('Data dasar angkatan/kader')
                 ->schema([
+                    Forms\Components\TextInput::make('code')
+                        ->label('Kode Angkatan')
+                        ->placeholder('XXIII')
+                        ->required()
+                        ->maxLength(50)
+                        ->unique(ignoreRecord: true)
+                        ->helperText('Gunakan angka Romawi atau format kode singkat.')
+                        ->columnSpan(1),
+
                     Forms\Components\TextInput::make('name')
                         ->label('Nama Angkatan')
                         ->placeholder('Kader XXIII')
                         ->required()
                         ->maxLength(255)
-                        ->columnSpanFull(),
+                        ->columnSpan(1),
 
                     Forms\Components\TextInput::make('year')
                         ->label('Tahun')

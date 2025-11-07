@@ -8,6 +8,7 @@ use BackedEnum;
 use Filament\Forms;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Grid;
 use Filament\Tables;
 use Filament\Tables\Table;
 use UnitEnum;
@@ -39,7 +40,7 @@ class EquipmentCategoryResource extends Resource
                     ->label('Deskripsi')
                     ->rows(3),
 
-                Forms\Components\Grid::make(3)->schema([
+                Grid::make(3)->schema([
                     Forms\Components\TextInput::make('icon')
                         ->label('Icon')
                         ->placeholder('heroicon-o-wrench'),

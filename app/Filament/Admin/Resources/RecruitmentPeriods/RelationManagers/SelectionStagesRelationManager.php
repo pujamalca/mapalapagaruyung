@@ -5,6 +5,8 @@ namespace App\Filament\Admin\Resources\RecruitmentPeriods\RelationManagers;
 use Filament\Forms;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
 use Filament\Tables;
 use Filament\Tables\Table;
 
@@ -24,7 +26,7 @@ class SelectionStagesRelationManager extends RelationManager
     {
         return $schema
             ->components([
-                Forms\Components\Grid::make(2)->schema([
+                Grid::make(2)->schema([
                     Forms\Components\TextInput::make('name')
                         ->label('Nama Tahap')
                         ->required()
@@ -47,7 +49,7 @@ class SelectionStagesRelationManager extends RelationManager
                     ->rows(2)
                     ->maxLength(500),
 
-                Forms\Components\Grid::make(3)->schema([
+                Grid::make(3)->schema([
                     Forms\Components\TextInput::make('order')
                         ->label('Urutan')
                         ->numeric()
@@ -73,7 +75,7 @@ class SelectionStagesRelationManager extends RelationManager
                     ->maxLength(1000)
                     ->helperText('Instruksi untuk peserta pada tahap ini'),
 
-                Forms\Components\Section::make('Penilaian')
+                Section::make('Penilaian')
                     ->schema([
                         Forms\Components\Toggle::make('is_scored')
                             ->label('Dinilai')
@@ -81,7 +83,7 @@ class SelectionStagesRelationManager extends RelationManager
                             ->live()
                             ->helperText('Apakah tahap ini memiliki penilaian?'),
 
-                        Forms\Components\Grid::make(2)->schema([
+                        Grid::make(2)->schema([
                             Forms\Components\TextInput::make('max_score')
                                 ->label('Nilai Maksimal')
                                 ->numeric()
@@ -103,7 +105,7 @@ class SelectionStagesRelationManager extends RelationManager
                         Forms\Components\Repeater::make('criteria')
                             ->label('Kriteria Penilaian')
                             ->schema([
-                                Forms\Components\Grid::make(3)->schema([
+                                Grid::make(3)->schema([
                                     Forms\Components\TextInput::make('name')
                                         ->label('Nama Kriteria')
                                         ->required()

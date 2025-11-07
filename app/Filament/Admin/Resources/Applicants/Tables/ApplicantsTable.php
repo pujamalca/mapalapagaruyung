@@ -145,7 +145,7 @@ class ApplicantsTable
                 Tables\Filters\Filter::make('score_range')
                     ->label('Rentang Nilai')
                     ->form([
-                        \Filament\Forms\Components\Grid::make(2)->schema([
+                        \Filament\Grid::make(2)->schema([
                             \Filament\Forms\Components\TextInput::make('min')
                                 ->label('Min')
                                 ->numeric(),

@@ -81,21 +81,10 @@ class EquipmentImporter extends Importer
                 ->rules(['nullable', 'numeric', 'min:0'])
                 ->example('500000'),
 
-            ImportColumn::make('location')
+            ImportColumn::make('storage_location')
                 ->label('Lokasi Penyimpanan')
                 ->rules(['nullable', 'string', 'max:255'])
                 ->example('Gudang A - Rak 1'),
-
-            ImportColumn::make('weight')
-                ->label('Berat (kg)')
-                ->numeric()
-                ->rules(['nullable', 'numeric', 'min:0'])
-                ->example('2.5'),
-
-            ImportColumn::make('dimensions')
-                ->label('Dimensi')
-                ->rules(['nullable', 'string', 'max:100'])
-                ->example('40x30x20 cm'),
 
             ImportColumn::make('notes')
                 ->label('Catatan')
@@ -122,16 +111,14 @@ class EquipmentImporter extends Importer
             'equipment_category_id' => $category->id,
             'brand' => $this->data['brand'] ?? null,
             'model' => $this->data['model'] ?? null,
-            'quantity_total' => $this->data['quantity_total'],
+            'quantity' => $this->data['quantity_total'],
             'quantity_available' => $quantityAvailable,
             'unit' => $this->data['unit'] ?? 'unit',
             'condition' => $this->data['condition'] ?? 'good',
             'status' => $this->data['status'] ?? 'available',
             'purchase_date' => $this->data['purchase_date'] ?? null,
             'purchase_price' => $this->data['purchase_price'] ?? null,
-            'location' => $this->data['location'] ?? null,
-            'weight' => $this->data['weight'] ?? null,
-            'dimensions' => $this->data['dimensions'] ?? null,
+            'storage_location' => $this->data['storage_location'] ?? null,
             'notes' => $this->data['notes'] ?? null,
         ]);
 

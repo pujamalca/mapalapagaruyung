@@ -3,10 +3,10 @@
 namespace App\Filament\Admin\Resources\TrainingPrograms\Schemas;
 
 use Filament\Forms;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
-use Spatie\MediaLibraryPro\Filament\Forms\Components\MediaLibraryFileUpload;
 
 class TrainingProgramForm
 {
@@ -297,7 +297,7 @@ class TrainingProgramForm
                     Tabs\Tab::make('Media & Catatan')
                         ->icon('heroicon-o-photo')
                         ->schema([
-                            MediaLibraryFileUpload::make('materials')
+                            SpatieMediaLibraryFileUpload::make('materials')
                                 ->label('File Materi')
                                 ->collection('materials')
                                 ->multiple()
@@ -305,7 +305,7 @@ class TrainingProgramForm
                                 ->acceptedFileTypes(['application/pdf', 'image/*', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation'])
                                 ->helperText('Upload materi pelatihan (PDF, PPT, gambar)'),
 
-                            MediaLibraryFileUpload::make('photos')
+                            SpatieMediaLibraryFileUpload::make('photos')
                                 ->label('Foto Kegiatan')
                                 ->collection('photos')
                                 ->multiple()

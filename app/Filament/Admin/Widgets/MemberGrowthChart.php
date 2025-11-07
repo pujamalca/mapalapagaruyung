@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class MemberGrowthChart extends ChartWidget
 {
-    protected static ?string $heading = 'Pertumbuhan Anggota';
+    protected ?string $heading = 'Pertumbuhan Anggota';
 
     protected static ?int $sort = 3;
 

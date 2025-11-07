@@ -154,7 +154,7 @@ class RecentActivitiesWidget extends BaseWidget
         return $this->getActivitiesQuery();
     }
 
-    protected function getTableRecords(): Collection
+    public function getTableRecords(): Collection
     {
         $expeditions = Expedition::select([
             'id',

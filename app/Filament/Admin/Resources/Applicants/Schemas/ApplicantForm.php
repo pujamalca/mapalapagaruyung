@@ -3,10 +3,10 @@
 namespace App\Filament\Admin\Resources\Applicants\Schemas;
 
 use Filament\Forms;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
-use Spatie\MediaLibraryPro\Filament\Forms\Components\MediaLibraryFileUpload;
 
 class ApplicantForm
 {
@@ -195,7 +195,7 @@ class ApplicantForm
                     Tabs\Tab::make('Dokumen')
                         ->icon('heroicon-o-document-text')
                         ->schema([
-                            MediaLibraryFileUpload::make('photo')
+                            SpatieMediaLibraryFileUpload::make('photo')
                                 ->label('Pas Foto')
                                 ->collection('photo')
                                 ->image()
@@ -204,13 +204,13 @@ class ApplicantForm
                                 ->helperText('Format: JPG, PNG, WebP. Maksimal 2MB'),
 
                             Grid::make(2)->schema([
-                                MediaLibraryFileUpload::make('ktp')
+                                SpatieMediaLibraryFileUpload::make('ktp')
                                     ->label('KTP')
                                     ->collection('ktp')
                                     ->acceptedFileTypes(['image/*', 'application/pdf'])
                                     ->maxSize(2048),
 
-                                MediaLibraryFileUpload::make('ktm')
+                                SpatieMediaLibraryFileUpload::make('ktm')
                                     ->label('KTM (Kartu Tanda Mahasiswa)')
                                     ->collection('ktm')
                                     ->acceptedFileTypes(['image/*', 'application/pdf'])
@@ -218,20 +218,20 @@ class ApplicantForm
                             ]),
 
                             Grid::make(2)->schema([
-                                MediaLibraryFileUpload::make('form')
+                                SpatieMediaLibraryFileUpload::make('form')
                                     ->label('Formulir Pendaftaran')
                                     ->collection('form')
                                     ->acceptedFileTypes(['image/*', 'application/pdf'])
                                     ->maxSize(2048),
 
-                                MediaLibraryFileUpload::make('payment_proof')
+                                SpatieMediaLibraryFileUpload::make('payment_proof')
                                     ->label('Bukti Pembayaran')
                                     ->collection('payment_proof')
                                     ->acceptedFileTypes(['image/*', 'application/pdf'])
                                     ->maxSize(2048),
                             ]),
 
-                            MediaLibraryFileUpload::make('documents')
+                            SpatieMediaLibraryFileUpload::make('documents')
                                 ->label('Dokumen Lainnya')
                                 ->collection('documents')
                                 ->multiple()

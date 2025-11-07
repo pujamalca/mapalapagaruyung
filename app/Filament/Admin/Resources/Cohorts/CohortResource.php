@@ -30,7 +30,7 @@ class CohortResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return $schema->components(CohortForm::schema());
+        return CohortForm::configure($schema);
     }
 
     public static function table(Table $table): Table

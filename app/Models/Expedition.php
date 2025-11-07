@@ -123,6 +123,11 @@ class Expedition extends Model implements HasMedia
         return $this->belongsTo(Division::class);
     }
 
+    public function user(): BelongsTo
+    {
+        return $this->leader();
+    }
+
     public function participants(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'expedition_participants')

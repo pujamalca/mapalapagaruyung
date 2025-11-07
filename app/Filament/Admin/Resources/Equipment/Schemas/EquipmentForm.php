@@ -3,18 +3,21 @@
 namespace App\Filament\Admin\Resources\Equipment\Schemas;
 
 use Filament\Forms;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
 
 class EquipmentForm
 {
     public static function schema(): array
     {
         return [
-            Forms\Components\Tabs::make('Equipment')
+            Tabs::make('Equipment')
                 ->tabs([
-                    Forms\Components\Tabs\Tab::make('Informasi Dasar')
+                    Tab::make('Informasi Dasar')
                         ->icon('heroicon-o-information-circle')
                         ->schema([
-                            Forms\Components\Grid::make(2)->schema([
+                            Grid::make(2)->schema([
                                 Forms\Components\TextInput::make('code')
                                     ->label('Kode Peralatan')
                                     ->required()
@@ -43,7 +46,7 @@ class EquipmentForm
                                 ->maxLength(255)
                                 ->columnSpanFull(),
 
-                            Forms\Components\Grid::make(2)->schema([
+                            Grid::make(2)->schema([
                                 Forms\Components\TextInput::make('brand')
                                     ->label('Merek')
                                     ->maxLength(255),
@@ -53,7 +56,7 @@ class EquipmentForm
                                     ->maxLength(255),
                             ]),
 
-                            Forms\Components\Grid::make(3)->schema([
+                            Grid::make(3)->schema([
                                 Forms\Components\TextInput::make('quantity')
                                     ->label('Jumlah Total')
                                     ->required()
@@ -80,10 +83,10 @@ class EquipmentForm
                                 ->columnSpanFull(),
                         ]),
 
-                    Forms\Components\Tabs\Tab::make('Kondisi & Status')
+                    Tab::make('Kondisi & Status')
                         ->icon('heroicon-o-clipboard-document-check')
                         ->schema([
-                            Forms\Components\Grid::make(2)->schema([
+                            Grid::make(2)->schema([
                                 Forms\Components\Select::make('condition')
                                     ->label('Kondisi')
                                     ->options([
@@ -116,7 +119,7 @@ class EquipmentForm
                                 ->columnSpanFull()
                                 ->helperText('Detail kondisi fisik, kerusakan, atau catatan penting lainnya'),
 
-                            Forms\Components\Grid::make(2)->schema([
+                            Grid::make(2)->schema([
                                 Forms\Components\TextInput::make('storage_location')
                                     ->label('Lokasi Penyimpanan')
                                     ->maxLength(255)
@@ -127,7 +130,7 @@ class EquipmentForm
                                     ->maxLength(255),
                             ]),
 
-                            Forms\Components\Grid::make(2)->schema([
+                            Grid::make(2)->schema([
                                 Forms\Components\DatePicker::make('purchase_date')
                                     ->label('Tanggal Pembelian')
                                     ->displayFormat('d/m/Y'),
@@ -140,10 +143,10 @@ class EquipmentForm
                             ]),
                         ]),
 
-                    Forms\Components\Tabs\Tab::make('Maintenance')
+                    Tab::make('Maintenance')
                         ->icon('heroicon-o-wrench-screwdriver')
                         ->schema([
-                            Forms\Components\Grid::make(2)->schema([
+                            Grid::make(2)->schema([
                                 Forms\Components\DatePicker::make('last_maintenance_date')
                                     ->label('Maintenance Terakhir')
                                     ->displayFormat('d/m/Y')
@@ -168,7 +171,7 @@ class EquipmentForm
                                 ->helperText('Interval waktu untuk maintenance rutin'),
                         ]),
 
-                    Forms\Components\Tabs\Tab::make('Spesifikasi')
+                    Tab::make('Spesifikasi')
                         ->icon('heroicon-o-list-bullet')
                         ->schema([
                             Forms\Components\KeyValue::make('specifications')
@@ -180,7 +183,7 @@ class EquipmentForm
                                 ->columnSpanFull(),
                         ]),
 
-                    Forms\Components\Tabs\Tab::make('Peminjaman')
+                    Tab::make('Peminjaman')
                         ->icon('heroicon-o-user-circle')
                         ->schema([
                             Forms\Components\Placeholder::make('borrowing_info')
@@ -190,7 +193,7 @@ class EquipmentForm
                                     : 'Peralatan tidak sedang dipinjam')
                                 ->columnSpanFull(),
 
-                            Forms\Components\Grid::make(2)->schema([
+                            Grid::make(2)->schema([
                                 Forms\Components\Select::make('current_borrower_id')
                                     ->label('Peminjam Saat Ini')
                                     ->relationship('currentBorrower', 'name')
@@ -211,7 +214,7 @@ class EquipmentForm
                                 ->columnSpanFull(),
                         ]),
 
-                    Forms\Components\Tabs\Tab::make('Media & Catatan')
+                    Tab::make('Media & Catatan')
                         ->icon('heroicon-o-photo')
                         ->schema([
                             Forms\Components\FileUpload::make('photos')
@@ -248,3 +251,4 @@ class EquipmentForm
         ];
     }
 }
+

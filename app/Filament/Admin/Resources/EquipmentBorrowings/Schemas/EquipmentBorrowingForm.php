@@ -3,15 +3,19 @@
 namespace App\Filament\Admin\Resources\EquipmentBorrowings\Schemas;
 
 use Filament\Forms;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
 
 class EquipmentBorrowingForm
 {
     public static function schema(): array
     {
         return [
-            Forms\Components\Tabs::make('Borrowing')
+            Tabs::make('Borrowing')
                 ->tabs([
-                    Forms\Components\Tabs\Tab::make('Informasi Peminjaman')
+                    Tab::make('Informasi Peminjaman')
                         ->icon('heroicon-o-document-text')
                         ->schema([
                             Forms\Components\TextInput::make('borrowing_code')
@@ -21,7 +25,7 @@ class EquipmentBorrowingForm
                                 ->default(fn () => \App\Models\EquipmentBorrowing::generateBorrowingCode())
                                 ->required(),
 
-                            Forms\Components\Grid::make(2)->schema([
+                            Grid::make(2)->schema([
                                 Forms\Components\Select::make('equipment_id')
                                     ->label('Peralatan')
                                     ->relationship('equipment', 'name', function ($query) {
@@ -51,7 +55,7 @@ class EquipmentBorrowingForm
                                     ->helperText('Pilih anggota yang akan meminjam'),
                             ]),
 
-                            Forms\Components\Grid::make(3)->schema([
+                            Grid::make(3)->schema([
                                 Forms\Components\TextInput::make('quantity_borrowed')
                                     ->label('Jumlah Dipinjam')
                                     ->required()
@@ -100,12 +104,12 @@ class EquipmentBorrowingForm
                                 ->helperText('Jelaskan tujuan peminjaman secara detail'),
                         ]),
 
-                    Forms\Components\Tabs\Tab::make('Kondisi & Catatan')
+                    Tab::make('Kondisi & Catatan')
                         ->icon('heroicon-o-clipboard-document-check')
                         ->schema([
-                            Forms\Components\Section::make('Kondisi Saat Dipinjam')
+                            Section::make('Kondisi Saat Dipinjam')
                                 ->schema([
-                                    Forms\Components\Grid::make(2)->schema([
+                                    Grid::make(2)->schema([
                                         Forms\Components\Select::make('condition_borrowed')
                                             ->label('Kondisi Saat Dipinjam')
                                             ->options([
@@ -129,7 +133,7 @@ class EquipmentBorrowingForm
                                         ->helperText('Catat detail kondisi, kerusakan kecil, atau catatan penting lainnya'),
                                 ]),
 
-                            Forms\Components\Section::make('Catatan Tambahan')
+                            Section::make('Catatan Tambahan')
                                 ->schema([
                                     Forms\Components\Textarea::make('borrower_notes')
                                         ->label('Catatan dari Peminjam')
@@ -143,7 +147,7 @@ class EquipmentBorrowingForm
                                 ]),
                         ]),
 
-                    Forms\Components\Tabs\Tab::make('Approval & Status')
+                    Tab::make('Approval & Status')
                         ->icon('heroicon-o-check-badge')
                         ->schema([
                             Forms\Components\Select::make('status')
@@ -160,7 +164,7 @@ class EquipmentBorrowingForm
                                 ->disabled(fn ($record) => $record !== null)
                                 ->helperText('Status akan diupdate otomatis saat approval'),
 
-                            Forms\Components\Grid::make(2)->schema([
+                            Grid::make(2)->schema([
                                 Forms\Components\Select::make('approved_by')
                                     ->label('Disetujui Oleh')
                                     ->relationship('approver', 'name')
@@ -180,7 +184,7 @@ class EquipmentBorrowingForm
                                 ->columnSpanFull(),
                         ]),
 
-                    Forms\Components\Tabs\Tab::make('Pengembalian')
+                    Tab::make('Pengembalian')
                         ->icon('heroicon-o-arrow-uturn-left')
                         ->schema([
                             Forms\Components\DatePicker::make('return_date')
@@ -189,7 +193,7 @@ class EquipmentBorrowingForm
                                 ->disabled()
                                 ->dehydrated(false),
 
-                            Forms\Components\Grid::make(2)->schema([
+                            Grid::make(2)->schema([
                                 Forms\Components\Select::make('condition_returned')
                                     ->label('Kondisi Saat Dikembalikan')
                                     ->options([
@@ -217,9 +221,9 @@ class EquipmentBorrowingForm
                                 ->disabled()
                                 ->dehydrated(false),
 
-                            Forms\Components\Section::make('Denda & Kerusakan')
+                            Section::make('Denda & Kerusakan')
                                 ->schema([
-                                    Forms\Components\Grid::make(2)->schema([
+                                    Grid::make(2)->schema([
                                         Forms\Components\Toggle::make('is_late')
                                             ->label('Terlambat?')
                                             ->disabled()
@@ -233,7 +237,7 @@ class EquipmentBorrowingForm
                                             ->dehydrated(false),
                                     ]),
 
-                                    Forms\Components\Grid::make(2)->schema([
+                                    Grid::make(2)->schema([
                                         Forms\Components\Toggle::make('is_damaged')
                                             ->label('Ada Kerusakan?')
                                             ->disabled()
@@ -265,3 +269,4 @@ class EquipmentBorrowingForm
         ];
     }
 }
+

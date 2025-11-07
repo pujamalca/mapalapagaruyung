@@ -31,7 +31,7 @@ class DivisionResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return $schema->components(DivisionForm::schema());
+        return DivisionForm::configure($schema);
     }
 
     public static function table(Table $table): Table

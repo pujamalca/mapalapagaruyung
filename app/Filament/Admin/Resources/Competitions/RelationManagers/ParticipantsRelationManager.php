@@ -5,6 +5,9 @@ namespace App\Filament\Admin\Resources\Competitions\RelationManagers;
 use Filament\Forms;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Tables;
 use Filament\Tables\Table;
 
@@ -20,9 +23,9 @@ class ParticipantsRelationManager extends RelationManager
     {
         return $schema
             ->schema([
-                Forms\Components\Tabs::make('Participant')
+                Tabs::make('Participant')
                     ->tabs([
-                        Forms\Components\Tabs\Tab::make('Data Dasar')
+                        Tab::make('Data Dasar')
                             ->schema([
                                 Forms\Components\Select::make('user_id')
                                     ->label('Peserta')
@@ -58,7 +61,7 @@ class ParticipantsRelationManager extends RelationManager
                                     ->label('Nomor Dada/BIB'),
                             ]),
 
-                        Forms\Components\Tabs\Tab::make('Tim')
+                        Tab::make('Tim')
                             ->schema([
                                 Forms\Components\TextInput::make('team_name')
                                     ->label('Nama Tim'),
@@ -77,9 +80,9 @@ class ParticipantsRelationManager extends RelationManager
                                     ->collapsible(),
                             ]),
 
-                        Forms\Components\Tabs\Tab::make('Hasil & Prestasi')
+                        Tab::make('Hasil & Prestasi')
                             ->schema([
-                                Forms\Components\Grid::make(2)->schema([
+                                Grid::make(2)->schema([
                                     Forms\Components\TextInput::make('rank')
                                         ->label('Peringkat')
                                         ->placeholder('Juara 1, 2, 3, dll'),
@@ -89,7 +92,7 @@ class ParticipantsRelationManager extends RelationManager
                                         ->numeric(),
                                 ]),
 
-                                Forms\Components\Grid::make(2)->schema([
+                                Grid::make(2)->schema([
                                     Forms\Components\TextInput::make('score')
                                         ->label('Skor')
                                         ->numeric(),
@@ -115,7 +118,7 @@ class ParticipantsRelationManager extends RelationManager
                                     ->collapsible(),
                             ]),
 
-                        Forms\Components\Tabs\Tab::make('Sertifikat')
+                        Tab::make('Sertifikat')
                             ->schema([
                                 Forms\Components\Toggle::make('certificate_issued')
                                     ->label('Sertifikat Diterbitkan')
@@ -248,3 +251,4 @@ class ParticipantsRelationManager extends RelationManager
             ->emptyStateIcon('heroicon-o-users');
     }
 }
+

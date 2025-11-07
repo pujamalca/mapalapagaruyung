@@ -3,10 +3,10 @@
 namespace App\Filament\Admin\Resources\Expeditions\Schemas;
 
 use Filament\Forms;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
-use Spatie\MediaLibraryPro\Filament\Forms\Components\MediaLibraryFileUpload;
 
 class ExpeditionForm
 {
@@ -395,7 +395,7 @@ class ExpeditionForm
                     Tabs\Tab::make('Media & Catatan')
                         ->icon('heroicon-o-photo')
                         ->schema([
-                            MediaLibraryFileUpload::make('route_maps')
+                            SpatieMediaLibraryFileUpload::make('route_maps')
                                 ->label('Peta Rute')
                                 ->collection('route_maps')
                                 ->multiple()
@@ -403,7 +403,7 @@ class ExpeditionForm
                                 ->acceptedFileTypes(['image/*', 'application/pdf'])
                                 ->helperText('Upload peta rute atau jalur ekspedisi'),
 
-                            MediaLibraryFileUpload::make('photos')
+                            SpatieMediaLibraryFileUpload::make('photos')
                                 ->label('Foto Dokumentasi')
                                 ->collection('photos')
                                 ->multiple()
@@ -412,7 +412,7 @@ class ExpeditionForm
                                 ->imageEditor()
                                 ->helperText('Upload foto kegiatan ekspedisi'),
 
-                            MediaLibraryFileUpload::make('documents')
+                            SpatieMediaLibraryFileUpload::make('documents')
                                 ->label('Dokumen')
                                 ->collection('documents')
                                 ->multiple()

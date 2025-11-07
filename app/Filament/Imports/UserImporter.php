@@ -5,10 +5,12 @@ namespace App\Filament\Imports;
 use App\Models\Cohort;
 use App\Models\Division;
 use App\Models\User;
+use App\Support\RoleMapper;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UserImporter extends Importer
 {
@@ -95,8 +97,8 @@ class UserImporter extends Importer
 
             ImportColumn::make('role')
                 ->label('Role')
-                ->rules(['required', 'string', 'in:Member,Senior Member,Alumni'])
-                ->example('Member'),
+                ->rules(['required', 'string', Rule::in(RoleMapper::validNames())])
+                ->example('Anggota'),
         ];
     }
 
@@ -138,7 +140,7 @@ class UserImporter extends Importer
 
         // Assign role
         if (!empty($this->data['role'])) {
-            $user->syncRoles([$this->data['role']]);
+            $user->syncRoles([RoleMapper::normalizeSingle($this->data['role'])]);
         }
 
         return $user;

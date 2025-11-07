@@ -14,6 +14,7 @@ class CohortSeeder extends Seeder
     {
         $cohorts = [
             [
+                'code' => 'XVIII',
                 'name' => 'Kader XVIII',
                 'year' => 2020,
                 'theme' => 'Harmoni Alam dan Manusia',
@@ -23,6 +24,7 @@ class CohortSeeder extends Seeder
                 'sort_order' => 1,
             ],
             [
+                'code' => 'XIX',
                 'name' => 'Kader XIX',
                 'year' => 2021,
                 'theme' => 'Jejak Langkah Pejuang Alam',
@@ -32,6 +34,7 @@ class CohortSeeder extends Seeder
                 'sort_order' => 2,
             ],
             [
+                'code' => 'XX',
                 'name' => 'Kader XX',
                 'year' => 2022,
                 'theme' => 'Bersatu Menembus Batas',
@@ -41,6 +44,7 @@ class CohortSeeder extends Seeder
                 'sort_order' => 3,
             ],
             [
+                'code' => 'XXI',
                 'name' => 'Kader XXI',
                 'year' => 2023,
                 'theme' => 'Eksplorasi Tanpa Henti',
@@ -50,6 +54,7 @@ class CohortSeeder extends Seeder
                 'sort_order' => 4,
             ],
             [
+                'code' => 'XXII',
                 'name' => 'Kader XXII',
                 'year' => 2024,
                 'theme' => 'Menggapai Puncak Bersama',
@@ -59,6 +64,7 @@ class CohortSeeder extends Seeder
                 'sort_order' => 5,
             ],
             [
+                'code' => 'XXIII',
                 'name' => 'Kader XXIII',
                 'year' => 2025,
                 'theme' => 'Penjaga Rimba Nusantara',

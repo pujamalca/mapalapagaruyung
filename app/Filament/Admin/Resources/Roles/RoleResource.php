@@ -52,7 +52,9 @@ class RoleResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->withCount('permissions');
+        return parent::getEloquentQuery()
+            ->withCount('permissions')
+            ->with('permissions:id,name');
     }
 
     public static function getNavigationBadge(): ?string
@@ -85,4 +87,3 @@ class RoleResource extends Resource
         return auth()->user()?->can('manage-roles') ?? false;
     }
 }
-

@@ -89,7 +89,7 @@ class TrainingParticipant extends Model
     // Helper methods
     public function getStatusLabelAttribute(): string
     {
-        return match($this->status) {
+        $labels = [
             'registered' => 'Terdaftar',
             'confirmed' => 'Dikonfirmasi',
             'attending' => 'Mengikuti',
@@ -98,13 +98,14 @@ class TrainingParticipant extends Model
             'failed' => 'Tidak Lulus',
             'dropped' => 'Mengundurkan Diri',
             'absent' => 'Tidak Hadir',
-            default => 'Tidak Diketahui',
         ];
+
+        return $labels[$this->status] ?? 'Tidak Diketahui';
     }
 
     public function getStatusColorAttribute(): string
     {
-        return match($this->status) {
+        $colors = [
             'registered' => 'gray',
             'confirmed' => 'info',
             'attending' => 'warning',
@@ -113,8 +114,9 @@ class TrainingParticipant extends Model
             'failed' => 'danger',
             'dropped' => 'gray',
             'absent' => 'danger',
-            default => 'gray',
         ];
+
+        return $colors[$this->status] ?? 'gray';
     }
 
     public function getAttendanceRateAttribute(): float

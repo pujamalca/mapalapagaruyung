@@ -8,6 +8,7 @@ use App\Models\EquipmentBorrowing;
 use App\Models\Expedition;
 use App\Models\TrainingProgram;
 use App\Models\User;
+use App\Support\RoleMapper;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
@@ -15,10 +16,11 @@ class StatsOverview extends BaseWidget
 {
     protected function getStats(): array
     {
-        $activeMembers = User::role(['Member', 'Senior Member'])->count();
-        $alumni = User::role('Alumni')->count();
+        $memberRoles = RoleMapper::normalize(['Member', 'Senior Member']);
+        $activeMembers = User::role($memberRoles)->count();
+        $alumni = User::role(RoleMapper::normalizeSingle('Alumni'))->count();
 
-        $totalEquipment = Equipment::sum('quantity_total');
+        $totalEquipment = Equipment::sum('quantity');
         $availableEquipment = Equipment::sum('quantity_available');
         $equipmentUtilization = $totalEquipment > 0
             ? round((($totalEquipment - $availableEquipment) / $totalEquipment) * 100, 1)
