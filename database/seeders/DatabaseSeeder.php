@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(RolePermissionSeeder::class);
         $this->call(SettingSeeder::class);
+        $this->call(CohortSeeder::class);
 
         if (app()->environment(['local', 'testing'])) {
             $admin = User::updateOrCreate(

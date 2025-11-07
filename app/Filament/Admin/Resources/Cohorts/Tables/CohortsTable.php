@@ -1,0 +1,115 @@
+<?php
+
+namespace App\Filament\Admin\Resources\Cohorts\Tables;
+
+use Filament\Tables;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+
+class CohortsTable
+{
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->columns([
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('photo')
+                    ->label('Foto')
+                    ->collection('photo')
+                    ->circular()
+                    ->defaultImageUrl(url('/images/default-cohort.png'))
+                    ->size(50),
+
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Nama Angkatan')
+                    ->searchable()
+                    ->sortable()
+                    ->weight('bold'),
+
+                Tables\Columns\TextColumn::make('year')
+                    ->label('Tahun')
+                    ->sortable()
+                    ->badge()
+                    ->color('info'),
+
+                Tables\Columns\TextColumn::make('theme')
+                    ->label('Tema')
+                    ->searchable()
+                    ->limit(40)
+                    ->toggleable(),
+
+                Tables\Columns\TextColumn::make('member_count')
+                    ->label('Anggota')
+                    ->sortable()
+                    ->alignCenter()
+                    ->badge()
+                    ->color('success'),
+
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Status')
+                    ->sortable()
+                    ->badge()
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'active' => 'Aktif',
+                        'alumni' => 'Alumni',
+                    })
+                    ->color(fn (string $state): string => match ($state) {
+                        'active' => 'success',
+                        'alumni' => 'gray',
+                    }),
+
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Dibuat')
+                    ->dateTime('d M Y H:i')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Diubah')
+                    ->dateTime('d M Y H:i')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+            ])
+            ->filters([
+                Tables\Filters\SelectFilter::make('status')
+                    ->label('Status')
+                    ->options([
+                        'active' => 'Aktif',
+                        'alumni' => 'Alumni',
+                    ]),
+
+                Tables\Filters\Filter::make('year')
+                    ->form([
+                        Tables\Filters\Filter::make('year_from')
+                            ->label('Dari Tahun'),
+                        Tables\Filters\Filter::make('year_to')
+                            ->label('Sampai Tahun'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['year_from'],
+                                fn (Builder $query, $year): Builder => $query->where('year', '>=', $year),
+                            )
+                            ->when(
+                                $data['year_to'],
+                                fn (Builder $query, $year): Builder => $query->where('year', '<=', $year),
+                            );
+                    }),
+            ])
+            ->actions([
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ])
+            ->defaultSort('year', 'desc')
+            ->poll('30s')
+            ->emptyStateHeading('Belum ada data angkatan')
+            ->emptyStateDescription('Klik tombol "Buat" untuk menambahkan angkatan pertama.')
+            ->emptyStateIcon('heroicon-o-users');
+    }
+}
