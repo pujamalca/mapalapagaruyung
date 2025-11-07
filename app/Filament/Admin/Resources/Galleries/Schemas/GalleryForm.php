@@ -7,6 +7,7 @@ use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Utilities\Get;
 
 class GalleryForm
 {
@@ -125,7 +126,7 @@ class GalleryForm
 
                             Forms\Components\Select::make('galleryable_id')
                                 ->label('Pilih Kegiatan')
-                                ->options(function (Forms\Get $get) {
+                                ->options(function (Get $get) {
                                     $type = $get('galleryable_type');
                                     if (!$type || !class_exists($type)) {
                                         return [];
@@ -133,7 +134,7 @@ class GalleryForm
                                     return $type::pluck('title', 'id')->toArray();
                                 })
                                 ->searchable()
-                                ->visible(fn (Forms\Get $get) => filled($get('galleryable_type'))),
+                                ->visible(fn (Get $get) => filled($get('galleryable_type'))),
                         ]),
 
                     Tabs\Tab::make('Fotografer & Tags')

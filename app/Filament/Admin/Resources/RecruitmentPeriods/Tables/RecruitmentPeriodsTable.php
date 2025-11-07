@@ -2,7 +2,7 @@
 
 namespace App\Filament\Admin\Resources\RecruitmentPeriods\Tables;
 
-use Filament\Schemas\Components\DatePicker;
+use Filament\Forms;
 use Filament\Tables;
 use Filament\Tables\Table;
 
@@ -120,9 +120,9 @@ class RecruitmentPeriodsTable
                 Tables\Filters\Filter::make('registration_period')
                     ->label('Periode Pendaftaran')
                     ->form([
-                        DatePicker::make('from')
+                        Forms\Components\DatePicker::make('from')
                             ->label('Dari'),
-                        DatePicker::make('until')
+                        Forms\Components\DatePicker::make('until')
                             ->label('Sampai'),
                     ])
                     ->query(function ($query, array $data) {
@@ -162,13 +162,6 @@ class RecruitmentPeriodsTable
                     ->requiresConfirmation()
                     ->action(fn ($record) => $record->update(['is_active' => false]))
                     ->successNotificationTitle('Periode recruitment berhasil dinonaktifkan'),
-
-                Tables\Actions\Action::make('view_stats')
-                    ->label('Statistik')
-                    ->icon('heroicon-o-chart-bar')
-                    ->color('info')
-                    ->url(fn ($record) => route('filament.admin.resources.recruitment-periods.view-stats', $record))
-                    ->openUrlInNewTab(false),
 
                 Tables\Actions\EditAction::make(),
 

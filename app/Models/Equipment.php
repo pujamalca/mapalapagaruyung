@@ -99,6 +99,11 @@ class Equipment extends Model implements HasMedia
         return $this->hasMany(EquipmentBorrowing::class);
     }
 
+    public function equipmentBorrowings(): HasMany
+    {
+        return $this->borrowings();
+    }
+
     // Scopes
     public function scopeAvailable($query)
     {

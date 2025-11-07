@@ -7,6 +7,7 @@ use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Utilities\Get;
 
 class ExpeditionForm
 {
@@ -389,7 +390,7 @@ class ExpeditionForm
                                 ->label('Tanggal Selesai')
                                 ->native(false)
                                 ->seconds(false)
-                                ->visible(fn (Forms\Get $get) => $get('status') === 'completed'),
+                                ->visible(fn (Get $get) => $get('status') === 'completed'),
                         ]),
 
                     Tabs\Tab::make('Media & Catatan')

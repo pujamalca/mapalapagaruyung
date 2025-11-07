@@ -7,7 +7,7 @@ use App\Filament\Exports\ExpeditionExporter;
 use App\Filament\Imports\ExpeditionImporter;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
-use Filament\Resources\Components\Tab;
+use Filament\Schemas\Components\Tabs\Tab;
 use Illuminate\Database\Eloquent\Builder;
 
 class ListExpeditions extends ListRecords

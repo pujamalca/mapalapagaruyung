@@ -91,6 +91,11 @@ class Gallery extends Model implements HasMedia
         return $this->belongsTo(GalleryCategory::class, 'gallery_category_id');
     }
 
+    public function galleryCategory(): BelongsTo
+    {
+        return $this->category();
+    }
+
     public function uploader(): BelongsTo
     {
         return $this->belongsTo(User::class, 'uploaded_by');

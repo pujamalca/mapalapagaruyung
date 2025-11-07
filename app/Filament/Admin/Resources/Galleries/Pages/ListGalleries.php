@@ -5,7 +5,7 @@ namespace App\Filament\Admin\Resources\Galleries\Pages;
 use App\Filament\Admin\Resources\Galleries\GalleryResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
-use Filament\Resources\Components\Tab;
+use Filament\Schemas\Components\Tabs\Tab;
 use Illuminate\Database\Eloquent\Builder;
 
 class ListGalleries extends ListRecords

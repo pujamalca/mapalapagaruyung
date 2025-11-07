@@ -6,8 +6,8 @@ use App\Filament\Admin\Resources\EquipmentBorrowings\EquipmentBorrowingResource;
 use App\Filament\Exports\EquipmentBorrowingExporter;
 use App\Models\EquipmentBorrowing;
 use Filament\Actions;
-use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Schemas\Components\Tabs\Tab;
 use Illuminate\Database\Eloquent\Builder;
 
 class ListEquipmentBorrowings extends ListRecords

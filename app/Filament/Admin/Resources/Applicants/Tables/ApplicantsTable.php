@@ -2,6 +2,8 @@
 
 namespace App\Filament\Admin\Resources\Applicants\Tables;
 
+use Filament\Forms;
+use Filament\Schemas\Components\Grid;
 use Filament\Tables;
 use Filament\Tables\Table;
 
@@ -145,7 +147,7 @@ class ApplicantsTable
                 Tables\Filters\Filter::make('score_range')
                     ->label('Rentang Nilai')
                     ->form([
-                        \Filament\Grid::make(2)->schema([
+                        Grid::make(2)->schema([
                             \Filament\Forms\Components\TextInput::make('min')
                                 ->label('Min')
                                 ->numeric(),

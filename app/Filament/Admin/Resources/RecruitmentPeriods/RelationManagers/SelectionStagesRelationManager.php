@@ -7,6 +7,7 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Tables;
 use Filament\Tables\Table;
 
@@ -89,16 +90,16 @@ class SelectionStagesRelationManager extends RelationManager
                                 ->numeric()
                                 ->default(100)
                                 ->minValue(1)
-                                ->required(fn (Forms\Get $get) => $get('is_scored'))
-                                ->visible(fn (Forms\Get $get) => $get('is_scored')),
+                                ->required(fn (Get $get) => $get('is_scored'))
+                                ->visible(fn (Get $get) => $get('is_scored')),
 
                             Forms\Components\TextInput::make('passing_score')
                                 ->label('Nilai Lulus')
                                 ->numeric()
                                 ->default(70)
                                 ->minValue(0)
-                                ->required(fn (Forms\Get $get) => $get('is_scored'))
-                                ->visible(fn (Forms\Get $get) => $get('is_scored'))
+                                ->required(fn (Get $get) => $get('is_scored'))
+                                ->visible(fn (Get $get) => $get('is_scored'))
                                 ->helperText('Nilai minimal untuk lulus'),
                         ]),
 
@@ -129,7 +130,7 @@ class SelectionStagesRelationManager extends RelationManager
                             ->addActionLabel('Tambah Kriteria')
                             ->reorderable()
                             ->collapsible()
-                            ->visible(fn (Forms\Get $get) => $get('is_scored'))
+                            ->visible(fn (Get $get) => $get('is_scored'))
                             ->itemLabel(fn (array $state): ?string => $state['name'] ?? null),
                     ]),
 

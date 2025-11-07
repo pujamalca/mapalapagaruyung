@@ -7,6 +7,7 @@ use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Utilities\Get;
 
 class TrainingProgramForm
 {
@@ -264,8 +265,8 @@ class TrainingProgramForm
                                 ->default(70)
                                 ->minValue(0)
                                 ->maxValue(100)
-                                ->required(fn (Forms\Get $get) => $get('has_evaluation'))
-                                ->visible(fn (Forms\Get $get) => $get('has_evaluation'))
+                                ->required(fn (Get $get) => $get('has_evaluation'))
+                                ->visible(fn (Get $get) => $get('has_evaluation'))
                                 ->helperText('Nilai minimal untuk lulus program'),
 
                             Forms\Components\Repeater::make('evaluation_criteria')
@@ -290,7 +291,7 @@ class TrainingProgramForm
                                 ->addActionLabel('Tambah Kriteria')
                                 ->reorderable()
                                 ->collapsible()
-                                ->visible(fn (Forms\Get $get) => $get('has_evaluation'))
+                                ->visible(fn (Get $get) => $get('has_evaluation'))
                                 ->itemLabel(fn (array $state): ?string => $state['criteria'] ?? null),
                         ]),
 

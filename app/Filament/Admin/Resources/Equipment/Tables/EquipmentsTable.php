@@ -93,10 +93,9 @@ class EquipmentsTable
 
             Tables\Columns\TextColumn::make('borrowed_until')
                 ->label('Sampai Tanggal')
-                ->date('d/m/Y')
                 ->sortable()
                 ->toggleable()
-                ->default('-'),
+                ->formatStateUsing(fn ($state) => $state instanceof \DateTimeInterface ? $state->format('d/m/Y') : '-'),
 
             Tables\Columns\TextColumn::make('storage_location')
                 ->label('Lokasi')

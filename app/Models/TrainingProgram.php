@@ -87,7 +87,7 @@ class TrainingProgram extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('materials')
-            ->acceptsMimeTypes(['application/pdf', 'image/*', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation']);
+            ->acceptsMimeTypes(['application/pdf', 'image/jpeg', 'image/png', 'image/webp', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation']);
 
         $this->addMediaCollection('photos')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp']);
@@ -111,6 +111,11 @@ class TrainingProgram extends Model implements HasMedia
     public function sessions(): HasMany
     {
         return $this->hasMany(TrainingSession::class)->orderBy('order');
+    }
+
+    public function trainingSessions(): HasMany
+    {
+        return $this->sessions();
     }
 
     public function participants(): BelongsToMany

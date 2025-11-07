@@ -7,6 +7,8 @@ use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
 
 class EquipmentBorrowingForm
 {
@@ -36,7 +38,7 @@ class EquipmentBorrowingForm
                                     ->searchable()
                                     ->preload()
                                     ->live()
-                                    ->afterStateUpdated(function ($state, Forms\Set $set) {
+                                    ->afterStateUpdated(function ($state, Set $set) {
                                         if ($state) {
                                             $equipment = \App\Models\Equipment::find($state);
                                             if ($equipment) {
@@ -63,7 +65,7 @@ class EquipmentBorrowingForm
                                     ->minValue(1)
                                     ->default(1)
                                     ->live()
-                                    ->helperText(fn (Forms\Get $get) =>
+                                    ->helperText(fn (Get $get) =>
                                         $get('equipment_id')
                                             ? 'Max: ' . \App\Models\Equipment::find($get('equipment_id'))?->quantity_available
                                             : 'Pilih peralatan terlebih dahulu'
@@ -79,7 +81,7 @@ class EquipmentBorrowingForm
                                 Forms\Components\DatePicker::make('due_date')
                                     ->label('Tanggal Kembali')
                                     ->required()
-                                    ->minDate(fn (Forms\Get $get) => $get('borrow_date') ?? now())
+                                    ->minDate(fn (Get $get) => $get('borrow_date') ?? now())
                                     ->displayFormat('d/m/Y')
                                     ->helperText('Tanggal jatuh tempo pengembalian'),
                             ]),

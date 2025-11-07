@@ -3,6 +3,7 @@
 namespace App\Filament\Admin\Resources\EquipmentBorrowings\Tables;
 
 use Filament\Forms;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -44,10 +45,9 @@ class EquipmentBorrowingsTable
 
             Tables\Columns\TextColumn::make('return_date')
                 ->label('Tgl. Kembali')
-                ->date('d/m/Y')
                 ->sortable()
-                ->default('-')
-                ->toggleable(),
+                ->toggleable()
+                ->formatStateUsing(fn ($state) => $state instanceof \DateTimeInterface ? $state->format('d/m/Y') : '-'),
 
             Tables\Columns\TextColumn::make('quantity_borrowed')
                 ->label('Jumlah')
@@ -265,14 +265,14 @@ class EquipmentBorrowingsTable
                         Forms\Components\Textarea::make('damage_description')
                             ->label('Deskripsi Kerusakan')
                             ->rows(2)
-                            ->visible(fn (Forms\Get $get) => $get('is_damaged'))
+                            ->visible(fn (Get $get) => $get('is_damaged'))
                             ->columnSpanFull(),
 
                         Forms\Components\TextInput::make('damage_cost')
                             ->label('Biaya Perbaikan')
                             ->numeric()
                             ->prefix('Rp')
-                            ->visible(fn (Forms\Get $get) => $get('is_damaged')),
+                            ->visible(fn (Get $get) => $get('is_damaged')),
 
                         Forms\Components\Placeholder::make('penalty_info')
                             ->label('Informasi Denda')

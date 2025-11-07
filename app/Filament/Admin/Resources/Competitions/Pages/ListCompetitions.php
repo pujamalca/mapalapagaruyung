@@ -7,7 +7,7 @@ use App\Filament\Exports\CompetitionExporter;
 use App\Filament\Imports\CompetitionImporter;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
-use Filament\Resources\Components\Tab;
+use Filament\Schemas\Components\Tabs\Tab;
 use Illuminate\Database\Eloquent\Builder;
 
 class ListCompetitions extends ListRecords

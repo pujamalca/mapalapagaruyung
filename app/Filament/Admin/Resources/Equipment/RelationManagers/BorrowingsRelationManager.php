@@ -122,9 +122,8 @@ class BorrowingsRelationManager extends RelationManager
 
                 Tables\Columns\TextColumn::make('return_date')
                     ->label('Tanggal Kembali')
-                    ->date('d/m/Y')
                     ->sortable()
-                    ->default('-'),
+                    ->formatStateUsing(fn ($state) => $state instanceof \DateTimeInterface ? $state->format('d/m/Y') : '-'),
 
                 Tables\Columns\TextColumn::make('quantity_borrowed')
                     ->label('Jumlah')
