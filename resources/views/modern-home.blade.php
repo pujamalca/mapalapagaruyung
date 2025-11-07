@@ -76,7 +76,7 @@
             @endif
 
             <a
-                href="{{ route('activities') }}"
+                href="{{ route('activities.index') }}"
                 class="inline-flex items-center gap-3 px-8 py-4 bg-white/10 backdrop-blur-md text-white rounded-full font-bold text-lg border-2 border-white/30 hover:bg-white/20 hover:scale-105 transition-all duration-300"
             >
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -172,7 +172,7 @@
                     Ikuti petualangan dan kegiatan kami
                 </p>
             </div>
-            <a href="{{ route('activities') }}" class="hidden md:inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300">
+            <a href="{{ route('activities.index') }}" class="hidden md:inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300">
                 Lihat Semua
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
@@ -285,7 +285,7 @@
         </div>
 
         <div class="text-center mt-12" data-aos="fade-up">
-            <a href="{{ route('gallery') }}" class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-full font-bold hover:shadow-xl hover:scale-105 transition-all duration-300">
+            <a href="{{ route('gallery.index') }}" class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-full font-bold hover:shadow-xl hover:scale-105 transition-all duration-300">
                 Lihat Semua Foto
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>

@@ -20,13 +20,11 @@ class AboutController extends Controller
 
         // Get all divisions
         $divisions = Division::where('is_active', true)
-            ->orderBy('order')
+            ->orderBy('sort_order')
             ->get();
 
         // Get latest cohort
-        $latestCohort = Cohort::where('is_active', true)
-            ->latest('year')
-            ->first();
+        $latestCohort = Cohort::active()->latest('year')->first();
 
         // Statistics
         $memberRoles = RoleMapper::normalize(['Member', 'Senior Member']);

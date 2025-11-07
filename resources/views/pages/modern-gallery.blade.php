@@ -27,7 +27,7 @@
             <div class="flex flex-col md:flex-row gap-4">
                 {{-- Search --}}
                 <div class="flex-1">
-                    <form action="{{ route('gallery') }}" method="GET" class="relative" x-data="{ search: '{{ request('search') }}' }">
+                    <form action="{{ route('gallery.index') }}" method="GET" class="relative" x-data="{ search: '{{ request('search') }}' }">
                         <input type="hidden" name="category" value="{{ request('category') }}">
                         <input
                             type="text"
@@ -79,14 +79,14 @@
     <div class="container mx-auto px-4">
         <div class="flex items-center gap-4 overflow-x-auto pb-2 scrollbar-hide" data-aos="fade-up">
             <a
-                href="{{ route('gallery') }}"
+                href="{{ route('gallery.index') }}"
                 class="px-6 py-2.5 rounded-full font-semibold whitespace-nowrap transition-all {{ !request('category') ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg' : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700' }}"
             >
                 Semua
             </a>
             @foreach($categories as $category)
                 <a
-                    href="{{ route('gallery', ['category' => $category->id, 'search' => request('search')]) }}"
+                    href="{{ route('gallery.index', ['category' => $category->id, 'search' => request('search')]) }}"
                     class="px-6 py-2.5 rounded-full font-semibold whitespace-nowrap transition-all {{ request('category') == $category->id ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg' : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700' }}"
                 >
                     {{ $category->name }}
@@ -103,6 +103,10 @@
             {{-- Grid View --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 @foreach($galleries as $index => $gallery)
+                    @php
+                        $mediaItems = $gallery->getMedia('images');
+                        $primaryImage = $mediaItems->first();
+                    @endphp
                     <div
                         class="group relative overflow-hidden rounded-2xl shadow-lg hover-lift bg-white dark:bg-slate-900"
                         data-aos="fade-up"
@@ -110,15 +114,15 @@
                     >
                         {{-- Image --}}
                         <a
-                            href="{{ $gallery->getFirstMediaUrl('images') ?: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800' }}"
+                            href="{{ $primaryImage?->getUrl() ?: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800' }}"
                             class="glightbox block relative aspect-square overflow-hidden"
-                            data-gallery="gallery"
+                            data-gallery="gallery-{{ $gallery->id }}"
                             data-title="{{ $gallery->title }}"
                             data-description="{{ $gallery->description }}"
                         >
-                            @if($gallery->getFirstMediaUrl('images'))
+                            @if($primaryImage)
                                 <img
-                                    src="{{ $gallery->getFirstMediaUrl('images') }}"
+                                    src="{{ $primaryImage->getUrl() }}"
                                     alt="{{ $gallery->title }}"
                                     class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                                     loading="lazy"
@@ -152,6 +156,16 @@
                                 @endif
                             </div>
                         </a>
+
+                        {{-- Hidden anchors to include remaining images in the lightbox --}}
+                        @foreach($mediaItems->skip(1) as $extraMedia)
+                            <a href="{{ $extraMedia->getUrl() }}"
+                               class="glightbox hidden"
+                               data-gallery="gallery-{{ $gallery->id }}"
+                               data-title="{{ $gallery->title }}"
+                               data-description="{{ $extraMedia->getCustomProperty('caption') ?? $gallery->description }}">
+                            </a>
+                        @endforeach
 
                         {{-- Info --}}
                         <div class="p-4">
@@ -203,7 +217,7 @@
                 </p>
                 @if(request('search') || request('category'))
                     <a
-                        href="{{ route('gallery') }}"
+                        href="{{ route('gallery.index') }}"
                         class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all"
                     >
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

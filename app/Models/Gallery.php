@@ -74,13 +74,16 @@ class Gallery extends Model implements HasMedia
     {
         $this->addMediaCollection('images')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp'])
+            ->useDisk('public')
             ->useFallbackUrl('/images/placeholder.jpg');
 
         $this->addMediaCollection('videos')
+            ->useDisk('public')
             ->acceptsMimeTypes(['video/mp4', 'video/mpeg', 'video/quicktime']);
 
         $this->addMediaCollection('cover')
             ->singleFile()
+            ->useDisk('public')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp'])
             ->useFallbackUrl('/images/gallery-cover-placeholder.jpg');
     }
@@ -130,6 +133,15 @@ class Gallery extends Model implements HasMedia
     public function scopePublic($query)
     {
         return $query->where('is_public', true);
+    }
+
+    protected static function booted(): void
+    {
+        static::saving(function (Gallery $gallery): void {
+            if ($gallery->status === 'published') {
+                $gallery->is_public = true;
+            }
+        });
     }
 
     public function scopeRecent($query, int $limit = 10)
