@@ -122,7 +122,7 @@ class AdminPanelProvider extends PanelProvider
             return new HtmlString(
                 <<<HTML
                 <div class="flex items-center gap-2 h-full">
-                    <img src="{$escapedLogo}" alt="{$escapedName}" class="h-full w-auto" />
+                    <img src="{$escapedLogo}" alt="{$escapedName}" class="max-h-full w-auto object-contain" style="height:100%; width:auto;" />
                     <span class="hidden sm:inline-flex items-center text-sm font-semibold text-gray-700 dark:text-gray-200">{$escapedName}</span>
                 </div>
                 HTML
