@@ -92,29 +92,38 @@ class AdminPanelProvider extends PanelProvider
 
     protected function resolveBrandName(): string
     {
-        $settings = $this->generalSettings();
-
-        return $settings->site_name ?? config('app.name', 'Starter Kit');
+        try {
+            $settings = $this->generalSettings();
+            return $settings->site_name ?? config('app.name', 'Starter Kit');
+        } catch (\Exception $e) {
+            return config('app.name', 'Starter Kit');
+        }
     }
 
     protected function resolveBrandLogo(): ?string
     {
-        $settings = $this->generalSettings();
+        try {
+            $settings = $this->generalSettings();
+            $logoUrl = $this->toPublicUrl($settings->site_logo);
 
-        $logoUrl = $this->toPublicUrl($settings->site_logo);
+            if (! $logoUrl) {
+                return null;
+            }
 
-        if (! $logoUrl) {
+            return $logoUrl;
+        } catch (\Exception $e) {
             return null;
         }
-
-        return $logoUrl;
     }
 
     protected function resolveFaviconUrl(): ?string
     {
-        $settings = $this->generalSettings();
-
-        return $this->toPublicUrl($settings->site_favicon);
+        try {
+            $settings = $this->generalSettings();
+            return $this->toPublicUrl($settings->site_favicon);
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 
     protected function toPublicUrl(?string $path): ?string
