@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ExpeditionSeeder::class);
         $this->call(CompetitionSeeder::class);
         $this->call(GallerySeeder::class);
+        $this->call(EquipmentSeeder::class);
 
         if (app()->environment(['local', 'testing'])) {
             $admin = User::updateOrCreate(
