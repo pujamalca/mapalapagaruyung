@@ -7,13 +7,15 @@ use App\Filament\Admin\Resources\TrainingPrograms\RelationManagers;
 use App\Filament\Admin\Resources\TrainingPrograms\Schemas\TrainingProgramForm;
 use App\Filament\Admin\Resources\TrainingPrograms\Tables\TrainingProgramsTable;
 use App\Models\TrainingProgram;
+use BackedEnum;
 use Filament\Resources\Resource;
+use UnitEnum;
 
 class TrainingProgramResource extends Resource
 {
     protected static ?string $model = TrainingProgram::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
+    protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-academic-cap';
 
     protected static ?string $navigationLabel = 'Program Pelatihan';
 
@@ -21,13 +23,13 @@ class TrainingProgramResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Program Pelatihan';
 
-    protected static ?string $navigationGroup = 'BKP & Pelatihan';
+    protected static UnitEnum|string|null $navigationGroup = 'BKP & Pelatihan';
 
     protected static ?int $navigationSort = 1;
 
-    public static function form(\Filament\Forms\Form $form): \Filament\Forms\Form
+    public static function form(\Filament\Schemas\Schema $schema): \Filament\Schemas\Schema
     {
-        return $form
+        return $schema
             ->schema(TrainingProgramForm::schema());
     }
 

@@ -167,7 +167,7 @@ class ProgressRelationManager extends RelationManager
                     ->label('Nilai')
                     ->alignCenter()
                     ->badge()
-                    ->color(fn ($record, $state) => {
+                    ->color(function ($record, $state) {
                         if (!$record->selectionStage->is_scored || $state === null) {
                             return 'gray';
                         }
