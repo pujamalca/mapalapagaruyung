@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -50,6 +51,20 @@ class User extends Authenticatable implements HasMedia, HasAvatar, MustVerifyEma
         'preferences',
         'metadata',
         'password',
+        // Mapala-specific fields
+        'nim',
+        'major',
+        'faculty',
+        'enrollment_year',
+        'cohort_id',
+        'member_number',
+        'mapala_join_year',
+        'member_status',
+        'address',
+        'blood_type',
+        'medical_history',
+        'emergency_contact',
+        'skills',
     ];
 
     /**
@@ -76,6 +91,11 @@ class User extends Authenticatable implements HasMedia, HasAvatar, MustVerifyEma
             'preferences' => 'array',
             'metadata' => 'array',
             'password' => 'hashed',
+            // Mapala-specific casts
+            'enrollment_year' => 'integer',
+            'mapala_join_year' => 'integer',
+            'emergency_contact' => 'array',
+            'skills' => 'array',
         ];
     }
 
@@ -83,6 +103,17 @@ class User extends Authenticatable implements HasMedia, HasAvatar, MustVerifyEma
     {
         $this->addMediaCollection('avatar')
             ->singleFile();
+
+        $this->addMediaCollection('certificates')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp', 'application/pdf']);
+
+        $this->addMediaCollection('documents')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp', 'application/pdf']);
+    }
+
+    public function cohort(): BelongsTo
+    {
+        return $this->belongsTo(Cohort::class);
     }
 
     public function posts(): HasMany
@@ -165,4 +196,67 @@ class User extends Authenticatable implements HasMedia, HasAvatar, MustVerifyEma
             ->logOnlyDirty()
             ->logFillable();
     }
+
+    /**
+     * Check if user is a Mapala member (not just prospective).
+     */
+    public function isMember(): bool
+    {
+        return in_array($this->member_status, ['junior', 'member', 'alumni']);
+    }
+
+    /**
+     * Check if user is an active member.
+     */
+    public function isActiveMember(): bool
+    {
+        return in_array($this->member_status, ['junior', 'member']) && $this->is_active;
+    }
+
+    /**
+     * Check if user is alumni.
+     */
+    public function isAlumni(): bool
+    {
+        return $this->member_status === 'alumni';
+    }
+
+    /**
+     * Check if user is prospective member.
+     */
+    public function isProspective(): bool
+    {
+        return $this->member_status === 'prospective';
+    }
+
+    /**
+     * Get formatted member status.
+     */
+    public function getMemberStatusLabelAttribute(): string
+    {
+        return match($this->member_status) {
+            'prospective' => 'Calon Anggota',
+            'junior' => 'Anggota Muda',
+            'member' => 'Anggota',
+            'alumni' => 'Alumni',
+            default => 'Tidak Diketahui',
+        };
+    }
+
+    /**
+     * Get emergency contact name.
+     */
+    public function getEmergencyContactNameAttribute(): ?string
+    {
+        return $this->emergency_contact['name'] ?? null;
+    }
+
+    /**
+     * Get emergency contact phone.
+     */
+    public function getEmergencyContactPhoneAttribute(): ?string
+    {
+        return $this->emergency_contact['phone'] ?? null;
+    }
 }
+
