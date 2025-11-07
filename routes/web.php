@@ -62,6 +62,16 @@ Route::middleware('auth')->group(function () {
         ->name('verification.resend');
 });
 
+// Member Portal (protected with auth middleware)
+Route::middleware('auth')->prefix('member')->name('member.')->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\Member\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/profile', [App\Http\Controllers\Member\ProfileController::class, 'show'])->name('profile');
+    Route::get('/profile/edit', [App\Http\Controllers\Member\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [App\Http\Controllers\Member\ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/password', [App\Http\Controllers\Member\ProfileController::class, 'updatePassword'])->name('profile.password');
+    Route::get('/activities', [App\Http\Controllers\Member\ActivityHistoryController::class, 'index'])->name('activities');
+});
+
 // Preview routes (protected with auth middleware)
 Route::middleware('auth')->group(function () {
     Route::get('/preview/posts/{post}', [PostPreviewController::class, 'show'])->name('posts.preview');
