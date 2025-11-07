@@ -90,3 +90,53 @@ Route::prefix('v1')
             Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
         });
     });
+
+// Mapala-specific API endpoints
+Route::prefix('v1/mapala')
+    ->name('api.mapala.')
+    ->middleware(['api'])
+    ->group(function (): void {
+        // Authentication
+        Route::prefix('auth')->group(function (): void {
+            Route::post('register', [App\Http\Controllers\Api\AuthController::class, 'register'])->name('auth.register');
+            Route::post('login', [App\Http\Controllers\Api\AuthController::class, 'login'])->name('auth.login');
+
+            Route::middleware(['auth:sanctum'])->group(function (): void {
+                Route::post('logout', [App\Http\Controllers\Api\AuthController::class, 'logout'])->name('auth.logout');
+                Route::get('me', [App\Http\Controllers\Api\AuthController::class, 'me'])->name('auth.me');
+                Route::put('profile', [App\Http\Controllers\Api\AuthController::class, 'updateProfile'])->name('auth.profile.update');
+                Route::put('password', [App\Http\Controllers\Api\AuthController::class, 'changePassword'])->name('auth.password.change');
+            });
+        });
+
+        // Protected routes
+        Route::middleware(['auth:sanctum'])->group(function (): void {
+            // Dashboard
+            Route::get('dashboard', [App\Http\Controllers\Api\DashboardController::class, 'index'])->name('dashboard');
+
+            // Activities
+            Route::prefix('activities')->group(function (): void {
+                Route::get('available', [App\Http\Controllers\Api\ActivityController::class, 'available'])->name('activities.available');
+                Route::get('expeditions', [App\Http\Controllers\Api\ActivityController::class, 'expeditions'])->name('activities.expeditions');
+                Route::get('expeditions/{expedition}', [App\Http\Controllers\Api\ActivityController::class, 'expeditionDetail'])->name('activities.expeditions.show');
+                Route::get('training', [App\Http\Controllers\Api\ActivityController::class, 'training'])->name('activities.training');
+                Route::get('competitions', [App\Http\Controllers\Api\ActivityController::class, 'competitions'])->name('activities.competitions');
+            });
+
+            // Equipment
+            Route::prefix('equipment')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Api\EquipmentController::class, 'index'])->name('equipment.index');
+                Route::get('categories', [App\Http\Controllers\Api\EquipmentController::class, 'categories'])->name('equipment.categories');
+                Route::get('borrowings', [App\Http\Controllers\Api\EquipmentController::class, 'borrowings'])->name('equipment.borrowings');
+                Route::get('borrowings/active', [App\Http\Controllers\Api\EquipmentController::class, 'activeBorrowings'])->name('equipment.borrowings.active');
+                Route::post('borrowings', [App\Http\Controllers\Api\EquipmentController::class, 'requestBorrowing'])->name('equipment.borrowings.request');
+            });
+
+            // Gallery
+            Route::prefix('gallery')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Api\GalleryController::class, 'index'])->name('gallery.index');
+                Route::get('categories', [App\Http\Controllers\Api\GalleryController::class, 'categories'])->name('gallery.categories');
+                Route::get('{gallery}', [App\Http\Controllers\Api\GalleryController::class, 'show'])->name('gallery.show');
+            });
+        });
+    });

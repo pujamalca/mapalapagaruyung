@@ -16,7 +16,7 @@ class CohortResource extends Resource
 {
     protected static ?string $model = Cohort::class;
 
-    protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-users';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-users';
 
     protected static ?string $navigationLabel = 'Angkatan';
 
@@ -30,7 +30,7 @@ class CohortResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return CohortForm::configure($schema);
+        return $schema->components(CohortForm::schema());
     }
 
     public static function table(Table $table): Table

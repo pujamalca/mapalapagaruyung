@@ -1,0 +1,3 @@
+name,email,username,phone,password,cohort,division,address,blood_type,emergency_contact_name,emergency_contact_phone,emergency_contact_relation,allergies,medical_conditions,bio,is_active,role
+John Doe,john@example.com,johndoe,08123456789,password123,Kader XXIV,Divisi Pendakian,"Jl. Contoh No. 123",A+,Jane Doe,08198765432,Orang Tua,Tidak ada,Sehat,Member aktif Mapala,1,Member
+Jane Smith,jane@example.com,janesmith,08129876543,password123,Kader XXIII,Divisi Panjat Tebing,"Jl. Test No. 456",B+,John Smith,08197654321,Sibling,Seafood,Sehat,Alumni Mapala yang aktif,1,Alumni

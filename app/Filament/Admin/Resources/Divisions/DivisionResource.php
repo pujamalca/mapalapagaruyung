@@ -17,7 +17,7 @@ class DivisionResource extends Resource
 {
     protected static ?string $model = Division::class;
 
-    protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-user-group';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-user-group';
 
     protected static ?string $navigationLabel = 'Divisi';
 
@@ -31,7 +31,7 @@ class DivisionResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return DivisionForm::configure($schema);
+        return $schema->components(DivisionForm::schema());
     }
 
     public static function table(Table $table): Table

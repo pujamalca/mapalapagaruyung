@@ -22,14 +22,15 @@ class MembersRelationManager extends RelationManager
 
     public function form(Schema $schema): Schema
     {
-        return $schema->components([
-            Forms\Components\Select::make('user_id')
-                ->label('Pilih Anggota')
-                ->relationship('', 'name')
-                ->searchable()
-                ->preload()
-                ->required()
-                ->hidden(fn ($livewire) => $livewire instanceof Tables\Actions\EditAction),
+        return $schema
+            ->components([
+                Forms\Components\Select::make('user_id')
+                    ->label('Pilih Anggota')
+                    ->relationship('', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->required()
+                    ->hidden(fn ($livewire) => $livewire instanceof Tables\Actions\EditAction),
 
             Forms\Components\DatePicker::make('joined_at')
                 ->label('Tanggal Bergabung')
