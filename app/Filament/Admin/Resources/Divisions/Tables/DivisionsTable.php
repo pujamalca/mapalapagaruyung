@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Filament/Admin/Resources/Divisions/Tables;
+namespace App\Filament\Admin\Resources\Divisions\Tables;
 
 use Filament\Tables;
 use Filament\Tables\Table;
 
 class DivisionsTable
 {
-    public static function table(Table $table): Table
+    public static function configure(Table $table): Table
     {
         return $table
             ->columns([

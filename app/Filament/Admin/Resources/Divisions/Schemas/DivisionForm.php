@@ -6,12 +6,13 @@ use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Schemas\Schema;
 
 class DivisionForm
 {
-    public static function schema(): array
+    public static function configure(Schema $schema): Schema
     {
-        return [
+        return $schema->components([
             Section::make('Informasi Dasar')
                 ->description('Data dasar divisi')
                 ->schema([
@@ -126,6 +127,6 @@ class DivisionForm
                 ])
                 ->collapsible()
                 ->collapsed(),
-        ];
+        ]);
     }
 }

@@ -3,8 +3,8 @@
 namespace App\Filament\Admin\Resources\Divisions\RelationManagers;
 
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
 
@@ -20,46 +20,45 @@ class MembersRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\Select::make('user_id')
-                    ->label('Pilih Anggota')
-                    ->relationship('', 'name')
-                    ->searchable()
-                    ->preload()
-                    ->required()
-                    ->hidden(fn ($livewire) => $livewire instanceof Tables\Actions\EditAction),
+        return $schema->components([
+            Forms\Components\Select::make('user_id')
+                ->label('Pilih Anggota')
+                ->relationship('', 'name')
+                ->searchable()
+                ->preload()
+                ->required()
+                ->hidden(fn ($livewire) => $livewire instanceof Tables\Actions\EditAction),
 
-                Forms\Components\DatePicker::make('joined_at')
-                    ->label('Tanggal Bergabung')
-                    ->default(now())
-                    ->required()
-                    ->native(false)
-                    ->displayFormat('d/m/Y')
-                    ->maxDate(now()),
+            Forms\Components\DatePicker::make('joined_at')
+                ->label('Tanggal Bergabung')
+                ->default(now())
+                ->required()
+                ->native(false)
+                ->displayFormat('d/m/Y')
+                ->maxDate(now()),
 
-                Forms\Components\Select::make('role')
-                    ->label('Peran dalam Divisi')
-                    ->options([
-                        'Ketua Divisi' => 'Ketua Divisi',
-                        'Wakil Ketua' => 'Wakil Ketua',
-                        'Sekretaris' => 'Sekretaris',
-                        'Bendahara' => 'Bendahara',
-                        'Koordinator' => 'Koordinator',
-                        'Anggota' => 'Anggota',
-                    ])
-                    ->default('Anggota')
-                    ->searchable()
-                    ->required(),
+            Forms\Components\Select::make('role')
+                ->label('Peran dalam Divisi')
+                ->options([
+                    'Ketua Divisi' => 'Ketua Divisi',
+                    'Wakil Ketua' => 'Wakil Ketua',
+                    'Sekretaris' => 'Sekretaris',
+                    'Bendahara' => 'Bendahara',
+                    'Koordinator' => 'Koordinator',
+                    'Anggota' => 'Anggota',
+                ])
+                ->default('Anggota')
+                ->searchable()
+                ->required(),
 
-                Forms\Components\Toggle::make('is_active')
-                    ->label('Status Aktif')
-                    ->default(true)
-                    ->inline(false)
-                    ->helperText('Anggota aktif akan ditampilkan di website'),
-            ]);
+            Forms\Components\Toggle::make('is_active')
+                ->label('Status Aktif')
+                ->default(true)
+                ->inline(false)
+                ->helperText('Anggota aktif akan ditampilkan di website'),
+        ]);
     }
 
     public function table(Table $table): Table

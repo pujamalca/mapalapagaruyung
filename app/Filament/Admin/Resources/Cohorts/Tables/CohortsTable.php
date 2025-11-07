@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class CohortsTable
 {
-    public static function table(Table $table): Table
+    public static function configure(Table $table): Table
     {
         return $table
             ->columns([

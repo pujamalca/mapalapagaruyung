@@ -5,12 +5,13 @@ namespace App\Filament\Admin\Resources\Cohorts\Schemas;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Schemas\Schema;
 
 class CohortForm
 {
-    public static function schema(): array
+    public static function configure(Schema $schema): Schema
     {
-        return [
+        return $schema->components([
             Section::make('Informasi Dasar')
                 ->description('Data dasar angkatan/kader')
                 ->schema([
@@ -87,6 +88,6 @@ class CohortForm
                         ->columnSpanFull(),
                 ])
                 ->collapsible(),
-        ];
+        ]);
     }
 }

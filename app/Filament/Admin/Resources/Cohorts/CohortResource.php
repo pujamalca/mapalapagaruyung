@@ -6,15 +6,17 @@ use App\Filament\Admin\Resources\Cohorts\Pages;
 use App\Filament\Admin\Resources\Cohorts\Schemas\CohortForm;
 use App\Filament\Admin\Resources\Cohorts\Tables\CohortsTable;
 use App\Models\Cohort;
-use Filament\Forms\Form;
+use BackedEnum;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class CohortResource extends Resource
 {
     protected static ?string $model = Cohort::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-users';
 
     protected static ?string $navigationLabel = 'Angkatan';
 
@@ -22,18 +24,18 @@ class CohortResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Angkatan';
 
-    protected static ?string $navigationGroup = 'Keanggotaan';
+    protected static UnitEnum|string|null $navigationGroup = 'Keanggotaan';
 
     protected static ?int $navigationSort = 1;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form->schema(CohortForm::schema());
+        return CohortForm::configure($schema);
     }
 
     public static function table(Table $table): Table
     {
-        return CohortsTable::table($table);
+        return CohortsTable::configure($table);
     }
 
     public static function getRelations(): array
