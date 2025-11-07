@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 // Blog routes
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
@@ -18,6 +18,12 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
 // Pages routes
 Route::get('/pages/{slug}', [PageController::class, 'show'])->name('pages.show');
+
+// Recruitment routes
+Route::get('/recruitment', \App\Livewire\RegistrationForm::class)->name('recruitment.register');
+Route::get('/recruitment/success/{registration_number}', function ($registration_number) {
+    return view('recruitment.success', compact('registration_number'));
+})->name('recruitment.success');
 
 // Guest Routes (Registration & Password Reset)
 Route::middleware('guest')->group(function () {
