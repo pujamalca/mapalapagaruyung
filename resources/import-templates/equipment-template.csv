@@ -1,0 +1,4 @@
+code,name,category,brand,model,quantity_total,quantity_available,unit,condition,status,purchase_date,purchase_price,location,weight,dimensions,notes
+EQ-001,Tenda Dome 4 Orang,Tenda,Consina,Magnum 4,10,8,unit,good,available,2024-01-15,500000,Gudang A - Rak 1,2.5,40x30x20 cm,Kondisi baik
+EQ-002,Carrier 60L,Carrier,Eiger,Excelsior 60L,15,12,unit,excellent,available,2024-02-01,750000,Gudang A - Rak 2,1.8,65x35x25 cm,Baru dibeli
+EQ-003,Sleeping Bag,Sleeping System,Deuter,Dreamlite,20,18,unit,good,available,2023-12-10,400000,Gudang B - Rak 1,0.9,30x20x15 cm,Untuk suhu dingin
