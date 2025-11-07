@@ -7,15 +7,17 @@ use App\Filament\Admin\Resources\Divisions\RelationManagers;
 use App\Filament\Admin\Resources\Divisions\Schemas\DivisionForm;
 use App\Filament\Admin\Resources\Divisions\Tables\DivisionsTable;
 use App\Models\Division;
-use Filament\Forms\Form;
+use BackedEnum;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class DivisionResource extends Resource
 {
     protected static ?string $model = Division::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-user-group';
 
     protected static ?string $navigationLabel = 'Divisi';
 
@@ -23,13 +25,13 @@ class DivisionResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Divisi';
 
-    protected static ?string $navigationGroup = 'Keanggotaan';
+    protected static UnitEnum|string|null $navigationGroup = 'Keanggotaan';
 
     protected static ?int $navigationSort = 2;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form->schema(DivisionForm::schema());
+        return $schema->components(DivisionForm::schema());
     }
 
     public static function table(Table $table): Table

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament/Admin/Resources/Divisions/Tables;
+namespace App\Filament\Admin\Resources\Divisions\Tables;
 
 use Filament\Tables;
 use Filament\Tables\Table;

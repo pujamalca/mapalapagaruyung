@@ -24,13 +24,21 @@ class UserResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUser;
 
-    protected static UnitEnum|string|null $navigationGroup = 'Sistem';
+    protected static UnitEnum|string|null $navigationGroup = 'Keanggotaan';
+
+    protected static ?string $navigationLabel = 'Anggota';
+
+    protected static ?string $modelLabel = 'Anggota';
+
+    protected static ?string $pluralModelLabel = 'Anggota';
+
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema
     {
-        return UserForm::configure($schema);
+        return $schema->components(UserForm::schema());
     }
 
     public static function getNavigationBadge(): ?string
@@ -53,7 +61,7 @@ class UserResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return UsersTable::configure($table);
+        return UsersTable::table($table);
     }
 
     public static function getRelations(): array
