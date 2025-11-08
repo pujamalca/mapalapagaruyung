@@ -67,7 +67,7 @@
                 </a>
 
                 <!-- CTA Button -->
-                <a href="{{ route('member.dashboard') }}"
+                <a href="/admin"
                    class="inline-flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
@@ -145,7 +145,7 @@
             </a>
 
             <div class="pt-4 border-t border-gray-200 dark:border-gray-800">
-                <a href="{{ route('member.dashboard') }}"
+                <a href="/admin"
                    class="block w-full text-center px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all duration-300">
                     Portal Member
                 </a>
